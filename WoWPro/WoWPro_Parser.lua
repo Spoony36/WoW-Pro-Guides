@@ -381,9 +381,10 @@ function WoWPro.EmitStep(i)
         elseif tag == "CS" or tag == "CN" then
             line = line
         elseif tag == "Z" then
+            local zone = WoWPro.zone[i]
             -- Suppress zone tags that are dupes of the master zone
-            if WoWPro.zone[i] and WoWPro.zone[i] ~= WoWPro.Guides[GID].zone then
-                line = addTagValue(line, tag, WoWPro.zone[i])
+            if zone and zone ~= WoWPro.Guides[GID].zone then
+                line = addTagValue(line, tag, WoWPro.ConvertZone(zone))
             end
         elseif tag and WoWPro.TagTable[tag].vtype == "boolean" then
             -- No value
@@ -535,18 +536,6 @@ function WoWPro.ParseQuestLine(faction, zone, i, text)
     end
     if WoWPro.action[i] == "h" then
         WoWPro.step[i] = L[WoWPro.step[i]]
-    end
-    if WoWPro.map[i] then
-        if (WoWPro.map[i] == "PLAYER") then
-            local x, y = WoWPro:GetPlayerZonePosition()
-            if (x  and y) then
-                WoWPro.map[i]= ("%.2f"):format(x * 100) .. ',' .. ("%.2f"):format(y * 100)
-            else
-                WoWPro.map[i]= nil
-            end
-        else
-            WoWPro:ValidateMapCoords(GID,WoWPro.action[i],WoWPro.step[i],WoWPro.map[i])
-        end
     end
     WoWPro.zone[i] = WoWPro.zone[i] or (WoWPro.map[i] and zone)
     if WoWPro.zone[i] and WoWPro.map[i] and not WoWPro:ValidZone(WoWPro.zone[i]) then
@@ -789,7 +778,7 @@ function WoWPro.ParseSteps(steps)
     local _, myclass = _G.UnitClass("player")
     local _, myrace = _G.UnitRace("player")
     local myFaction = WoWPro.Faction:upper()
-    local zone = (WoWPro.Guides[GID].zone or ""):match("([^%(]+)"):trim()
+    local zone = (WoWPro.Guides[GID].name or ""):match("([^%(]+)"):trim()
 
     if WoWPro.Recorder then
         i = 1 -- No extra steps for recorder guides
