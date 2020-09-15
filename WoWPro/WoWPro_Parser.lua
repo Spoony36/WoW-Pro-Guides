@@ -324,6 +324,7 @@ DefineTag("R","playerrace","string",nil,nil)
 DefineTag("C","playerclass","string",nil,nil)
 DefineTag("GEN","playergender","string",nil,nil)
 DefineTag("RANK","rank","number",nil,nil)
+DefineTag("MS",nil,"string",nil,function (value,i) end)  -- Swallow MS Tags
 
 local function addTagValue(line, tag, value)
     line = line..tag.."||"
@@ -381,10 +382,9 @@ function WoWPro.EmitStep(i)
         elseif tag == "CS" or tag == "CN" then
             line = line
         elseif tag == "Z" then
-            local zone = WoWPro.zone[i]
             -- Suppress zone tags that are dupes of the master zone
-            if zone and zone ~= WoWPro.Guides[GID].zone then
-                line = addTagValue(line, tag, WoWPro.ConvertZone(zone))
+            if WoWPro.zone[i] and WoWPro.zone[i] ~= WoWPro.Guides[GID].zone then
+                line = addTagValue(line, tag, WoWPro.zone[i])
             end
         elseif tag and WoWPro.TagTable[tag].vtype == "boolean" then
             -- No value
@@ -778,7 +778,7 @@ function WoWPro.ParseSteps(steps)
     local _, myclass = _G.UnitClass("player")
     local _, myrace = _G.UnitRace("player")
     local myFaction = WoWPro.Faction:upper()
-    local zone = (WoWPro.Guides[GID].name or ""):match("([^%(]+)"):trim()
+    local zone = (WoWPro.Guides[GID].zone or ""):match("([^%(]+)"):trim()
 
     if WoWPro.Recorder then
         i = 1 -- No extra steps for recorder guides
