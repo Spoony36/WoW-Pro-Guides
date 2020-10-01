@@ -1,6 +1,6 @@
 -- luacheck: globals Grail TomTom Nx
 -- luacheck: globals select ipairs pairs next tremove tinsert
--- luacheck: globals tostring tonumber type abs max floor ceil
+-- luacheck: globals tostring tonumber type abs max floor ceil date
 -- luacheck: globals debugstack
 
 -----------------------------
@@ -633,11 +633,15 @@ function WoWPro.UpdateQuestTrackerRow(row)
                 for l=1,#WoWPro.QuestLog[qid].leaderBoard do
                     if WoWPro.QuestLog[qid].leaderBoard[l] then
                         track = track.."\n- "..WoWPro.QuestLog[qid].leaderBoard[l]
-                        if select(3, _G.GetQuestLogLeaderBoard(l, j)) then
+						if select(2, _G.GetQuestLogLeaderBoard(l, j)) == "progressbar" then
+							track = "\n- ".._G.GetQuestProgressBarPercent(qid).."% out of 100% Complete. "
+						end
+						if select(3, _G.GetQuestLogLeaderBoard(l, j)) then
                             track =  track.." (C)"
                         end
                     end
                 end
+
             elseif questtext then
                 --Partial completion steps only track pertinent objectives.
                 WoWPro:dbp("UQT: QID %d active and QO tag of [%s]", qid, questtext)
@@ -776,6 +780,40 @@ function WoWPro.TrashItem(use, step)
     end
 end
 
+-- Select a fashionable Hearthstone
+local Stones = {
+    [6948] = "Hearthstone",
+    [142298] = "Astonishingly Scarlet Slippers",
+    [28585] = "Ruby Slippers",
+    [166747] = "Brewfest Reveler's Hearthstone",
+    [93672] = "Dark Portal",
+    [172179] = "Eternal Traveler's Hearthstone",
+    [54452] = "Ethereal Portal",
+    [166746] = "Fire Eater's Hearthstone",
+    [162973] = "Greatfather Winter's Hearthstone",
+    [163045] = "Headless Horseman's Hearthstone",
+    [168907] = "Holographic Digitalization Hearthstone",
+    [165669] = "Lunar Elder's Hearthstone",
+    [182773] = "Necrolord Hearthstone",
+    [180290] = "Night Fae Hearthstone",
+    [165802] = "Noble Gardener's Hearthstone",
+    [165670] = "Peddlefeet's Lovely Hearthstone",
+    [64488] = "The Innkeeper's Daughter",
+    [183716] = "Venthyr Sinstone"
+}
+
+function WoWPro.SelectHearthstone()
+    local have={}
+    for id, nomen in pairs(Stones) do
+        if  _G.GetItemCount(id) > 0 then
+            tinsert(have, id)
+        end
+    end
+	if #have > 0 then
+		return have[_G.math.random(#have)] or 6948
+	end
+end
+
 -- Row Content Update --
 function WoWPro:RowUpdate(offset)
     local GID = WoWProDB.char.currentguide
@@ -906,7 +944,7 @@ function WoWPro:RowUpdate(offset)
         currentRow.note:SetText(note)
         currentRow.action:SetTexture(WoWPro.actiontypes[action])
         currentRow.action.tooltip.text:SetText(WoWPro.actionlabels[action])
-        if WoWPro.noncombat[k] and WoWPro.action[k] == "C" then
+        if WoWPro.noncombat[k] and (WoWPro.action[k] == "C" or WoWPro.action[k] == "N") then
             currentRow.action:SetTexture("Interface\\AddOns\\WoWPro\\Textures\\Config.tga")
             currentRow.action.tooltip.text:SetText("No Combat")
         elseif WoWPro.lootitem[k] and WoWPro.action[k] == "C" then
@@ -1005,7 +1043,7 @@ function WoWPro:RowUpdate(offset)
         WoWPro.RowDropdownMenu[i] = dropdown
 
         -- Item Button --
-        if action == "H" and not use then use = 6948 end
+        if action == "H" and not use then use = WoWPro.SelectHearthstone() end
 
         if action == "*" and use and _G.GetItemInfo(use) then
             currentRow.itembutton:Show()
@@ -1135,9 +1173,27 @@ function WoWPro:RowUpdate(offset)
             local mtext = "/click ExtraActionButton1"
             currentRow.eabutton:Show()
             currentRow.eabutton:SetAttribute("macrotext", mtext)
-			currentRow.eaicon:SetTexture(_G.ExtraActionButton1Icon:GetTexture())
+			currentRow.eaicon.EAB1_IsVisible = nil
+			currentRow.eaicon.currentTexture = nil
+			currentRow.eabutton:SetScript("OnUpdate", function()
+				local eabtexture = _G.ExtraActionButton1Icon:GetTexture()
+				if _G.ExtraActionButton1Icon:IsVisible() ~= currentRow.eaicon.EAB1_IsVisible then
+					currentRow.eaicon.EAB1_IsVisible =  _G.ExtraActionButton1Icon:IsVisible()
+					if currentRow.eaicon.EAB1_IsVisible then
+						currentRow.eaicon:SetTexture(eabtexture)
+						currentRow.eaicon.currentTexture = eabtexture
+					else
+						currentRow.eaicon:SetTexture()
+						currentRow.eaicon.currentTexture = nil
+					end
+				elseif eabtexture ~= currentRow.eaicon.currentTexture and _G.ExtraActionButton1Icon:IsVisible() and currentRow.eaicon.EAB1_IsVisible then
+					currentRow.eaicon.currentTexture = eabtexture
+					currentRow.eaicon:SetTexture(eabtexture)
+				end
+			end)
+
 			if not _G.InCombatLockdown() then
-				if currentRow.eabutton:IsVisible() and currentRow.eabutton:IsShown() then
+				if currentRow.eabutton:IsShown() then
 					local Tleft, Tbottom = currentRow.eabutton:GetRect()
 					currentRow.eabuttonSecured:Show()
 					currentRow.eabuttonSecured:SetAttribute("macrotext", mtext)
@@ -1593,12 +1649,13 @@ function WoWPro.NextStep(guideIndex, rowIndex)
                 elseif WoWPro.prereq[guideIndex]:find("^",1,true) then
                     -- Any prereq met is OK, skip only if none are met
                     local numprereqs = select("#", ("^"):split(WoWPro.prereq[guideIndex]))
+                    -- WoWPro:dbp("NextStep:PRE^: %d on %s", numprereqs, WoWPro.prereq[guideIndex])
                     local totalFailure = true
                     for j=1,numprereqs do
                         local jprereq = select(numprereqs-j+1, ("^"):split(WoWPro.prereq[guideIndex]))
                         if WoWPro:IsQuestFlaggedCompleted(jprereq, true) then
                             totalFailure = false -- If one of the prereqs is complete, step is not skipped.
-                            WoWPro:dbp("NextStep:PRE(%d): QID is completed, not skipping",guideIndex, jprereq)
+                            WoWPro:dbp("NextStep:PRE^(%d): QID is completed, not skipping",guideIndex, jprereq)
                         end
                     end
                     if totalFailure then
@@ -1607,12 +1664,13 @@ function WoWPro.NextStep(guideIndex, rowIndex)
                     end
                 else
                     -- All prereq met must be met
-                    local numprereqs = select("#", ("&"):split(WoWPro.prereq[guideIndex],1,true))
+                    local numprereqs = select("#", ("&"):split(WoWPro.prereq[guideIndex]))
+                    -- WoWPro:dbp("NextStep:PRE&: %d on %s", numprereqs, WoWPro.prereq[guideIndex])
                     for j=1,numprereqs do
                         local jprereq = select(numprereqs-j+1, ("&"):split(WoWPro.prereq[guideIndex]))
                         if not WoWPro:IsQuestFlaggedCompleted(jprereq, true) then
                             skip = true -- If one of the prereqs is NOT complete, step is skipped.
-                            WoWPro.why[guideIndex] = ("NextStep:PRE(%d): A mandatory prereq was not met: %s"):format(guideIndex, tostring(jprereq))
+                            WoWPro.why[guideIndex] = ("NextStep:PRE&(%d): A mandatory prereq was not met: %s"):format(guideIndex, tostring(jprereq))
                             WoWPro:dbp(WoWPro.why[guideIndex])
                             break
                         end
@@ -1827,7 +1885,13 @@ function WoWPro.NextStep(guideIndex, rowIndex)
             if WoWPro.inzone[guideIndex] then
                 local zonetext, subzonetext = _G.GetZoneText(), _G.GetSubZoneText():trim()
                 local inzone = WoWPro.inzone[guideIndex]
-                if (inzone == zonetext) or (inzone == subzonetext) then
+				local inzoneFlip = false
+				if (inzone:sub(1, 1) == "-") then
+                    inzone = inzone:sub(2)
+                    inzoneFlip = true
+                end
+
+                if (((inzone == zonetext) or (inzone == subzonetext)) and not inzoneFlip) or (((inzone ~= zonetext) and (inzone ~= subzonetext)) and inzoneFlip) then
                     WoWPro:dbp("Step %s [%s/%s] not skipped as InZone %s/%s",stepAction,step,tostring(QID), zonetext, subzonetext)
                 else
                     WoWPro:dbp("Step %s [%s/%s] skipped as not InZone %s/%s",stepAction,step,tostring(QID), zonetext, subzonetext)
@@ -2307,6 +2371,29 @@ function WoWPro.NextStep(guideIndex, rowIndex)
 				end
 			end
 
+			if WoWPro.covenant and WoWPro.covenant[guideIndex] then
+				local covenant = WoWPro.covenant[guideIndex]:gsub(" ", "")
+                if covenant == "Kyrian" then
+                    covenant = 1
+                elseif covenant == "Venthyr" then
+                    covenant = 2
+				elseif covenant == "NightFae" then
+                    covenant = 3
+				elseif covenant == "Necrolord" then
+                    covenant = 4
+                else
+                    covenant = 0
+                end
+
+				if WoWPro.GroupSync and covenant ~= _G.C_Covenants.GetActiveCovenantID() and (stepAction == "A" or stepAction == "T") then
+					WoWPro.CompleteStep(guideIndex, "NextStep(): You are not in the  " .. WoWPro.covenant[guideIndex] .. " covenant.")
+					skip = true
+				elseif covenant ~= _G.C_Covenants.GetActiveCovenantID() then
+					WoWPro.CompleteStep(guideIndex, "NextStep(): You are not in the  " .. WoWPro.covenant[guideIndex] .. " covenant.")
+					skip = true
+				end
+			end
+
             if WoWPro.ilvl and WoWPro.ilvl[guideIndex] then
                 local ilvlID,ilvlFlip = (";"):split(WoWPro.ilvl[guideIndex])
                 local avgIlvl = _G.GetAverageItemLevel()
@@ -2328,18 +2415,40 @@ function WoWPro.NextStep(guideIndex, rowIndex)
                 end
             end
 
+			if WoWPro.MID and WoWPro.MID[guideIndex] then
+				local onMission
+				local MID = WoWPro.MID[guideIndex]
+				local missionCheck = _G.C_Garrison.GetNumFollowersOnMission(MID)
+				if  missionCheck and missionCheck > 0 then
+					onMission = true
+				end
+				if onMission then
+                    WoWPro.CompleteStep(guideIndex, "NextStep(): Mission ["..MID.."] is currently active.")
+                    skip = true
+                else
+                    WoWPro.why[guideIndex] = "NextStep(): Mission ["..MID.."] isn't active."
+                end
+			end
+
 			if WoWPro.serverdate and WoWPro.serverdate[guideIndex] then
-                local epoch = _G.C_DateAndTime.GetServerTimeLocal()
+				local serverdate = WoWPro.serverdate[guideIndex]
+				local epoch = _G.C_DateAndTime.GetServerTimeLocal()
+				local dateFlip
 				local timeMet
-                if tonumber(WoWPro.serverdate[guideIndex]) >= epoch then
+				if (serverdate:sub(1, 1) == "-") then
+                        serverdate = serverdate:sub(2)
+                        dateFlip = true
+                 end
+
+                if tonumber(serverdate) >= epoch then
                     timeMet = true
                 end
 
-                if timeMet then
-                    WoWPro.CompleteStep(guideIndex, "NextStep(): Server time ["..epoch.."] is less than "..WoWPro.serverdate[guideIndex]..".")
+                if timeMet ~= dateFlip then
+                    WoWPro.CompleteStep(guideIndex, "NextStep(): Server time ["..date("%m/%d/%y %H:%M", epoch).."] is less than "..date("%m/%d/%y %H:%M", serverdate)..".")
                     skip = true
                 else
-                    WoWPro.why[guideIndex] = "NextStep(): Date of ["..WoWPro.serverdate[guideIndex].."] hasn't happened yet."
+                    WoWPro.why[guideIndex] = "NextStep(): Date of ["..date("%m/%d/%y %H:%M", serverdate).."] hasn't happened yet."
                 end
             end
             -- Skipping spells if known.
@@ -2423,8 +2532,15 @@ function WoWPro.NextStep(guideIndex, rowIndex)
             end
             -- This tests for spells that are cast on you and show up as buffs
             if WoWPro.buff and WoWPro.buff[guideIndex] then
-                local buffy = WoWPro:CheckPlayerForBuffs(WoWPro.buff[guideIndex])
-                if buffy then
+				local mybuff = WoWPro.buff[guideIndex]
+				local mybuffFlip = mybuff
+				if (mybuff:sub(1, 1) == "-") then
+                    mybuff = mybuff:sub(2)
+                    mybuffFlip = nil
+                end
+                local buffy = WoWPro:CheckPlayerForBuffs(mybuff)
+
+                if (buffy == mybuffFlip) then
                     skip = true
                     local why = ("Skipping because buff #%d"):format(buffy)
                     WoWPro.why[guideIndex] = why
@@ -2460,7 +2576,7 @@ function WoWPro.NextStep(guideIndex, rowIndex)
                 end
                 Name = Name:lower()
                 if Name == "townhall" then
-                    local level, _, townHallX, townHallY = _G.C_Garrison.GetGarrisonInfo(_G.LE_GARRISON_TYPE_6_0)
+                    local level, _, townHallX, townHallY = _G.C_Garrison.GetGarrisonInfo(_G.Enum.GarrisonType.Type_6_0)
                     if ( not level or not townHallX or not townHallY ) then
                         -- if no garrison yet, then stop.
                         skip = true
@@ -2471,7 +2587,7 @@ function WoWPro.NextStep(guideIndex, rowIndex)
                         WoWPro.why[guideIndex] = "NextStep(): TownHall not right level"
                     end
                 elseif  Name == "townhallonly" then
-                    local buildings = _G.C_Garrison.GetBuildings(_G.LE_GARRISON_TYPE_6_0);
+                    local buildings = _G.C_Garrison.GetBuildings(_G.Enum.GarrisonType.Type_6_0);
                     if #buildings > 0 then
                         WoWPro.why[guideIndex] = "NextStep(): Buildings owned already."
                         skip = true
@@ -2488,7 +2604,7 @@ function WoWPro.NextStep(guideIndex, rowIndex)
                         end
                         idHash[bid] = true
                     end
-                    local buildings = _G.C_Garrison.GetBuildings(_G.LE_GARRISON_TYPE_6_0);
+                    local buildings = _G.C_Garrison.GetBuildings(_G.Enum.GarrisonType.Type_6_0);
                     WoWPro.why[guideIndex] = "NextStep(): Building not owned."
                     local owned = false
                     for i = 1, #buildings do
@@ -2791,7 +2907,7 @@ function WoWPro.PopulateQuestLog()
     local delta = 0
     WoWPro:dbp("PopulateQuestLog: Entries %d, Quests %d.", numEntries, numQuests)
 
-    local leaderBoard, ocompleted, ncompleted, itemID, _
+    local leaderBoard, ocompleted, ncompleted, itemID, qfrequency, _
 
     -- numEntries may vary depending on collapsed headers, so we need to itereate th whole list.
     local numLoggedQuests, questLogIndex = 0, 0
@@ -2824,6 +2940,9 @@ function WoWPro.PopulateQuestLog()
                 if itemLink then
                     itemID = tonumber(itemLink:match("item:(%d+):"))
                 end
+				qfrequency = questInfo.frequency == _G.Enum.QuestFrequency.Daily
+			else
+				qfrequency = questInfo.frequency == _G.LE_QUEST_FREQUENCY_DAILY
             end
             numLoggedQuests = numLoggedQuests + 1
 
@@ -2836,7 +2955,7 @@ function WoWPro.PopulateQuestLog()
                 complete = WoWPro.QuestLog_IsComplete(questInfo.questID),
                 ocompleted = ocompleted,
                 ncompleted = ncompleted,
-                daily = questInfo.frequency == _G.LE_QUEST_FREQUENCY_DAILY,
+                daily = qfrequency,
                 leaderBoard = leaderBoard,
                 header = currentHeader,
                 use = itemID,
