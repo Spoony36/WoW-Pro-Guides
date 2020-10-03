@@ -643,17 +643,23 @@ function WoWPro.UpdateQuestTrackerRow(row)
                 end
 
             elseif questtext then
+
                 --Partial completion steps only track pertinent objectives.
                 WoWPro:dbp("UQT: QID %d active and QO tag of [%s]", qid, questtext)
                 local numquesttext = select("#", (";"):split(questtext))
                 for l=1,numquesttext do
                     local lquesttext = select(numquesttext-l+1, (";"):split(questtext))
                     if WoWPro.ValidObjective(lquesttext) then
-                        local _, status = WoWPro.QuestObjectiveStatus(qid, lquesttext)
-                        if l > 1 then
-                            track = track.."\n"
-                        end
-                        track = track.."- " .. status
+						if select(2, _G.GetQuestLogLeaderBoard(lquesttext , j)) == "progressbar" then
+							track = "\n- ".._G.GetQuestProgressBarPercent(qid).."% out of 100% Complete. "
+						else
+							local _, status = WoWPro.QuestObjectiveStatus(qid, lquesttext)
+							if l > 1 then
+								track = track.."\n"
+							end
+							track = track.."- " .. status
+
+						end
                     else
                         WoWPro:dbp("UQT: Not a valid quest objective %q [%s]", QID, questtext)
                         track =  track.." ???"
@@ -1890,7 +1896,11 @@ function WoWPro.NextStep(guideIndex, rowIndex)
                     inzone = inzone:sub(2)
                     inzoneFlip = true
                 end
-
+				if tonumber(inzone) then
+					local _, mapID = WoWPro.GetZoneText()
+					zonetext = mapID
+					inzone = tonumber(inzone)
+				end
                 if (((inzone == zonetext) or (inzone == subzonetext)) and not inzoneFlip) or (((inzone ~= zonetext) and (inzone ~= subzonetext)) and inzoneFlip) then
                     WoWPro:dbp("Step %s [%s/%s] not skipped as InZone %s/%s",stepAction,step,tostring(QID), zonetext, subzonetext)
                 else
@@ -3012,7 +3022,7 @@ function WoWPro.PopulateQuestLog()
     for QID, oldQuestInfo in pairs(WoWPro.oldQuests) do
         if WoWPro.QuestLog[QID] then
             local questInfo = WoWPro.QuestLog[QID]
-            -- WoWPro:print("Quest %s: [%s]",tostring(QID),WoWPro.QuestLog[QID].title)
+            --WoWPro:print("Quest %s: [%s]",tostring(QID),WoWPro.QuestLog[QID].title)
             if oldQuestInfo.leaderBoard and questInfo.leaderBoard then
                 if oldQuestInfo.complete ~= questInfo.complete then
                     WoWPro:print("Quest Completion: %d [%s] %s => %s",QID, tostring(oldQuestInfo.title),
@@ -3022,6 +3032,10 @@ function WoWPro.PopulateQuestLog()
                 for idx, status in pairs(questInfo.leaderBoard) do
                     -- Same Objective
                     -- WoWPro:dbp("idx %d, status %s",idx,status)
+					if select(2, _G.GetQuestLogLeaderBoard(idx, WoWPro.QuestLog[QID].index)) == "progressbar" then
+					WoWPro:print("Progress Bar objective updated on #%d (%s) on quest [%s]", idx, questInfo.leaderBoard[idx], questInfo.title)
+						delta = delta + 1
+					end
                     if (not oldQuestInfo.ocompleted[idx]) and questInfo.ocompleted[idx] then
                         WoWPro:print("Completed objective #%d (%s) on quest [%s]", idx, questInfo.leaderBoard[idx], questInfo.title)
                         delta = delta + 1
