@@ -1461,7 +1461,7 @@ function WoWPro:ResolveIcon(guide)
         if WoWPro.ProfessionSkillLines[tonumber(guide['pro'])] then
             guide.category = WoWPro.ProfessionSkillLines[tonumber(guide['pro'])].name
         else
-            WoWPro:Error("Unknown PRO Icon number [%s] for guide %s",guide['pro'],guide.GID)
+            WoWPro:dbp("Unknown PRO Icon number [%s] for guide %s",guide['pro'],guide.GID)
         end
         if WoWPro.RETAIL then
             -- prof1, prof2, archaeology, fishing, cooking, firstAid
@@ -1547,7 +1547,7 @@ function WoWPro.TestGuideLoad(guidID)
             end
         end
         if not WoWPro.Guides[guidID].nextGID then
-            WoWPro:Warning("TestGuideLoad: No Next Guide defined for "..guidID)
+            WoWPro:Print("TestGuideLoad: No Next Guide defined for "..guidID)
         else
             local nextG = WoWPro:NextGuide(guidID)
             if nextG and (WoWPro.Guides[nextG] == nil) then
