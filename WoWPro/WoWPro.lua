@@ -662,7 +662,11 @@ function WoWPro:DevCoords()
 	if not _G.WoWProDevCoords then
 		local p,f="player", _G.CreateFrame("EditBox","WoWProDevCoords",_G.UIParent,"InputBoxTemplate")
 		f:SetPoint("TOP",0,0)
-		f:SetSize(90, 40)
+		f:SetSize(100, 60)
+		f:SetScale(f:GetScale())
+		f:SetFont("Fonts\\FRIZQT__.TTF",12,"outline")
+		f:SetJustifyH("CENTER")
+		f:SetJustifyV("MIDDLE")
 		f:SetAutoFocus(false)
 		f:SetScript("OnUpdate",function(s,e)
 			local map = _G.C_Map.GetBestMapForUnit(p)
@@ -1656,9 +1660,11 @@ WoWPro.POST_BC = (WoWPro.TocVersion >= 30000)
 WoWPro.WRATH = ((WoWPro.TocVersion >= 30000) and (WoWPro.TocVersion < 40000))
 WoWPro.CATA = ((WoWPro.TocVersion >= 40000) and (WoWPro.TocVersion < 50000))
 WoWPro.POST_CATA = (WoWPro.TocVersion >= 40000)
+WoWPro.POST_SL = (WoWPro.TocVersion >= 90000)
 WoWPro.DRAGONFLIGHT = ((WoWPro.TocVersion >= 100000) and (WoWPro.TocVersion < 110000))
+WoWPro.WAR_WITHIN_PREPATCH = ((WoWPro.TocVersion >= 110000) and (WoWPro.TocVersion < 110002))
 WoWPro.WAR_WITHIN = ((WoWPro.TocVersion >= 110000) and (WoWPro.TocVersion < 120000))
-WoWPro.RETAIL_RELEASE = 10
+WoWPro.RETAIL_RELEASE = 11
 WoWPro.RETAIL = (WoWPro.TocVersion >= WoWPro.RETAIL_RELEASE * 10000)
 
 -- Change this to fake out a classic load on retail

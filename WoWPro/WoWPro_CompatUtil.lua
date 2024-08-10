@@ -271,7 +271,7 @@ function WoWPro.C_ScenarioInfo_GetCriteriaInfo(criteriaIndex)
            completed = completed,
            quantity = quantity,
            -- isFormatted
-           failed =- criteriaFailed,
+           failed = criteriaFailed,
            assetID = assetID,
            flags = flags,
            criteriaType = criteriaType,
@@ -336,5 +336,14 @@ function WoWPro.EasyMenu(menuList, menuFrame, anchor, x, y, displayMode, autoHid
         _G.ToggleDropDownMenu(1, nil, menuFrame, anchor, x, y, menuList, nil, autoHideDelay);
     else
         _G.EasyMenu(menuList, menuFrame, anchor, x, y, displayMode, autoHideDelay )
+    end
+end
+
+function WoWPro.IsValidAchievement(achnum)
+    if WoWPro.POST_SL then
+        return _G.C_AchievementInfo.IsValidAchievement(achnum)
+    else
+     local _, name = _G.GetAchievementInfo(achnum)
+        return name
     end
 end
