@@ -1,3 +1,45 @@
+# Release 2024.08.22.A
+## Bug Fixes
+* Added Khaz Algar Professions
+## Guide Updates
+* Retail Achievements: Added Azj-Kahet, Dorn, Hallowfall, and Khaz Algar Glyphs
+* Cata Horde Leveling: Hellfire Peninsula
+* Retail Neutral: Aes TWW Speedrunning Guide, The Coalition of Flames, Azj Kahet, Isle of Dorn, Hallowfall, TWW Intro, TWW MaxCampaign, The Ringing Deeps,
+
+
+# Release 2024.08.19.A
+## Bug Fixes
+* Fixed bug in Garrisons because Blizzard broke things for no good reason
+* TWW zone data update
+## Known deficiencies
+* Quest Picker depends on Grail, remove dependency
+## Guide Updates
+* Retail Alliance Dailies:  Kirin Tor Offensive
+* Cata Horde Leveling:  Burning Steppes
+* Retail Alliance Leveling: Vashjir
+* TWW Beta: AzjKahet, Dorn, Hallowfall, Intro, Max Campaign, TWD
+
+
+# Release 2024.08.15.B
+## Bug Fixes
+* Updated Retail Interface to 110002
+* Switched from deprecated UnitAura to compatibility function
+* Switched from `C_AchievementInfo.IsValidAchievement` to compatibility function
+* Added new 11.X zone definitions
+* Cata Achievements module activated
+## Known deficiencies
+* Quest Picker depends on Grail, remove dependency
+## Guide Updates
+* Retail Alliance Dailies:  Kirin Tor Offensive
+* Cata Alliance Leveling:  Duskwood, Northern Stranglethorn, Redridge Mountains, Westfall
+* Cata Neutral Leveling: Mount Hyjal, UnGoro
+* Retail Alliance Leveling: Vashjir, Icecrown
+* Retail Horde Leveling: Vashjir
+* Retail Neutral: Mount Hyjal, Dracthyr Intro, Legion Shaman Order Hall
+* TWW Beta: Dorn, Hallowfall, TRD
+* World Events: Squally
+
+
 # Release 2024.07.25.A
 ## Bug Fixes
 * Updated to HereBeDragons 2.14.3-release

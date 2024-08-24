@@ -23,7 +23,6 @@
 	<Script file="DF_Misfit_Dragons.lua"/>
 	<Script file="DF_Reclaiming_Gilneas.lua"/>
 	<Script file="DF_Harbinger.lua"/>
-	<Script file="DF_speed6070.lua"/>
 	<Script file="INTRO_DeathKnight.lua"/>
 	<Script file="INTRO_DeathKnight_Allied.lua"/>
 	<Script file="INTRO_Demon_Hunter.lua"/>
@@ -62,6 +61,13 @@
 	<Script file="SL_Maldraxxus.lua"/>
 	<Script file="SL_Maw_Intro.lua"/>
 	<Script file="SL_Revendreth.lua"/>
+	<Script file="TWW_Intro.lua"/>
+	<Script file="TWW_Dorn.lua"/>
+	<Script file="TWW_TRD.lua"/>
+	<Script file="TWW_Hallowfall.lua"/>
+	<Script file="TWW_AzjKahet.lua"/>
+	<Script file="TWW_MaxCampaign.lua"/>
+	<Script file="Aes_Versatile_TWW_speed.lua"/>
 	<Script file="WOD_DarkPortal_Intro.lua"/>
 	<Script file="WOD_Spires_of_Arak.lua"/>
 	<Script file="WOTLK_Sholazar_Basin.lua"/>
