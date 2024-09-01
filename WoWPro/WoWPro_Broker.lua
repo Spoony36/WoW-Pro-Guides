@@ -3012,6 +3012,10 @@ function WoWPro.NextStep(guideIndex, rowIndex)
                 local spellInfo = WoWPro.C_Spell_GetSpellInfo(tonumber(spellID))
                 if spellInfo then
                     spellName = spellInfo.name
+                else
+                    WoWPro:Error("GetSpellInfo(%q) ¦%q¦ is unknown.", spellID, WoWPro.spell[guideIndex])
+                    skip = true
+                    break
                 end
                 spellKnown = _G.IsPlayerSpell(spellID)
                 -- Testing if RUNE tag valid (Rune spells use different API than regular spells)
@@ -3031,8 +3035,8 @@ function WoWPro.NextStep(guideIndex, rowIndex)
                         end
                     end
                 else
-                    WoWPro:dbp("GetSpellInfo(%q): %s", spellName, tostring(spellKnown))
-                    spellKnown = spellKnown ~= nil
+                    WoWPro:dbp("IsPlayerSpell(%q/%q): %s", tostring(spellName), spellID, tostring(spellKnown))
+                    spellKnown = WoWPro.toboolean(spellKnown)
                 end
                 spellFlip = WoWPro.toboolean(spellFlip)
                 if spellFlip then spellKnown = not spellKnown end
