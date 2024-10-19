@@ -68,16 +68,16 @@ C Stones of Dornogal|QID|78457|QO|4|M|47.41,44.41|Z|2339;Dornogal|N|Speak to Bra
 = Train Herbalism|QID|99999|M|44.86,69.36|Z|2339;Dornogal|N|From Akdan. Click this step off if you are done or dont care.|P|Herbalism;182|SPELL|Khaz Algar Herbalism;435811|;Spell is for Mycobloom
 = Train Alchemy|QID|99999|M|47.07,70.42|Z|2339;Dornogal|N|From Tarig. Click this step off if you are done or dont care.|P|Alchemy;171|SPELL|Khaz Algar Alchemy;423321|
 = Train Jewelcrafting|QID|99999|M|49.58,70.82|Z|2339;Dornogal|N|From Makir. Click this step off if you are done or dont care.|P|Jewelcrafting;755|SPELL|Khaz Algar Jewelcrafting;423351|
-= Train Enchanting|QID|99999|M|52.82,71.06|Z|2339;Dornogal|N|From Nagad. Click this step off if you are done or dont care.|P|Enchanting;333|SPELL|Khaz Algar Enchanting;445384|;Spell is for Glimmering Haste
+= Train Enchanting|QID|99999|M|52.82,71.06|Z|2339;Dornogal|N|From Nagad. Click this step off if you are done or dont care.|P|Enchanting;333|SPELL|Khaz Algar Enchanting;445384|; Spell id for Glimmering Haste
 = Train Inscription|QID|99999|M|48.67,70.92|Z|2339;Dornogal|N|From Brrigan. Click this step off if you are done or dont care.|P|Inscription;773|SPELL|Khaz Algar Inscription;444181|;Spell is for Khaz Algar Milling
 = Train Blacksmithing|QID|99999|M|49.20,63.45|Z|2339;Dornogal|N|From Darean. Click this step off if you are done or dont care.|P|Blacksmithing;164|SPELL|Khaz Algar Blacksmithing;423332|
 = Train Engineering|QID|99999|M|49.28,56.06|Z|2339;Dornogal|N|From Thermalseer Arhdas. Click this step off if you are done or dont care.|P|Engineering;202|SPELL|Khaz Algar Engineering;423347|
 = Train Mining|QID|99999|M|52.65,52.73|Z|2339;Dornogal|N|From Tarib. Click this step off if you are done or dont care.|P|Mining;186|SPELL|Khaz Algar Mining;439705|;Spell is for Bismuth
 = Train Tailoring|QID|99999|M|54.76,63.61|Z|2339;Dornogal|N|From Kotag. Click this step off if you are done or dont care.|P|Tailoring;197|SPELL|Khaz Algar Tailoring;446926|;Spell is for Unraveling
 = Train Leatherworking|QID|99999|M|54.43,58.49|Z|2339;Dornogal|N|From Marbb. Click this step off if you are done or dont care.|P|Leatherworking;165|SPELL|Khaz Algar Leatherworking;423352|
-= Train Skinning|QID|99999|M|54.73,57.39|Z|2339;Dornogal|N|From Ginnad. Click this step off if you are done or dont care.|P|Skinning;393|SPELL|Khaz Algar Skinning;423354|
-= Train Cooking|QID|99999|M|44.12,45.83|Z|2339;Dornogal|N|From Athodas. Click this step off if you are done or dont care.|P|Cooking;185|SPELL|Khaz Algar Cooking;445117|;Spell is for Chopped Mycobloom
-= Train Fishing|QID|99999|M|50.53,27.00|Z|2339;Dornogal|N|From Drokar. Click this step off if you are done or dont care.|P|Fishing;356|SPELL|Khaz Algar Fishing;454441|;Spell is for Becoming an Algari Angler
+= Train Skinning|QID|99999|M|54.25,57.38|Z|2339;Dornogal|N|From Ginnad. Click this step off if you are done or dont care.|P|Skinning;393|SPELL|Khaz Algar Skinning;442566| ; Spell for Gloomm Chitin
+= Train Cooking|QID|99999|M|44.19,45.86|Z|2339;Dornogal|N|From Athodas. Click this step off if you are done or dont care.|P|Cooking;185|SPELL|Khaz Algar Cooking;445117|;Spell is for Chopped Mycobloom
+= Train Fishing|QID|99999|M|50.48,26.86|Z|2339;Dornogal|N|From Drokar. Click this step off if you are done or dont care.|P|Fishing;356|SPELL|Khaz Algar Fishing;454441|;Spell is for Becoming an Algari Angler
 ;=====> END PROFESSION BLOCK <======
 
 A Crossroads Plaza|QID|82747|M|46.79,32.93|Z|2339;Dornogal|N|From Rannida.|RANK|2|
@@ -94,17 +94,18 @@ A Wanted: The Boroughbreaker|QID|83335|M|55.24,55.91|Z|2248;Isle of Dorn|N|From 
 A The Earthwound|QID|83336|M|55.51,55.88|Z|2248;Isle of Dorn|N|From Freysworn Etterca.|RANK|2|
 A To Mourning Rise|QID|81661|M|55.75,56.05|Z|2248;Isle of Dorn|N|From Urtago.|RANK|2|
 A Lost Delivery|QID|78754|M|55.55,56.49|Z|2248;Isle of Dorn|N|From Dropped Package.|RANK|2|
-R Freywold Village|ACTIVE|78461|M|41.88,72.60|Z|2248;Isle of Dorn|N|Mount up and head to Freywold Village.|
+A For The Love of Gems|QID|82441|PRE|82747|M|43.05,70.04|Z|2248;Isle of Dorn|N|From Natalia Pearce.\nMount up and head near Freywold Village.|RANK|2|
+R Freywold Village|ACTIVE|78461|M|41.88,72.60|Z|2248;Isle of Dorn|N|Head to Freywold Village.|
 C The Fourth Seat|QID|78461|QO|3|M|41.86,72.64|Z|2248;Isle of Dorn|N|Talk with Adelgonn.|CHAT|
 T The Fourth Seat|QID|78461|M|41.86,72.64|Z|2248;Isle of Dorn|N|To Adelgonn.|
 A Delve into the Earth|QID|78464|PRE|78461|M|41.86,72.64|Z|2248;Isle of Dorn|N|From Adelgonn.|
 f Freywold Village|ACTIVE|78464|M|41.04,72.93|Z|2248;Isle of Dorn|N|At Iridi.|
-A For The Love of Gems|QID|82441|PRE|78461|M|43.05,70.04|Z|2248;Isle of Dorn|N|From Natalia Pearce.|RANK|2|
 C Delve into the Earth|QID|78464|QO|1|M|38.87,73.37|Z|2248;Isle of Dorn|N|Journey to the Earthcrawl Mines delve.|
 C Delve into the Earth|QID|78464|QO|2|M|38.87,73.30|Z|2248;Isle of Dorn|N|Speak to Brann Bronzebeard.|CHAT|
 C Delve into the Earth|QID|78464|QO|3|M|38.90,73.32|Z|2248;Isle of Dorn|N|Open the Explorers' League Supplies.|
 C Delve into the Earth|QID|78464|QO|4|M|38.90,73.32|Z|2248;Isle of Dorn|N|Select a Combat Role for Brann Bronzebeard.|
 C Delve into the Earth|QID|78464|QO|5|M|45.11,11.57|Z|2269;Earthcrawl Mines!Dungeon|N|Earthcrawl Mines entered.|
+A Delver's Call: Earthcrawl Mines|QID|85648|PRE|78461|M|44.7,12.1|Z|2269;Earthcrawl Mines!Dungeon|N|Lying on the ground just inside.|RANK|2|;As we're doing the delve anyway
 C Delve into the Earth|QID|78464|QO|6|M|54.41,75.32|Z|2269;Earthcrawl Mines!Dungeon|N|Earthcrawl Mines objectives completed.|
 C Delve into the Earth|QID|78464|QO|7|M|64.62,88.06|Z|2269;Earthcrawl Mines!Dungeon|N|Earthcrawl Mines treasure found.|
 C Delve into the Earth|QID|78464|QO|8|M|38.77,73.30|Z|2248;Isle of Dorn|N|Speak to Brann Bronzebeard outside the delve.|CHAT|
@@ -163,7 +164,7 @@ C Weapons and Warriors|QID|78996|QO|2<1|M|41.0,73.1|Z|2248;Isle of Dorn|N|Pick u
 C Weapons and Warriors|QID|78996|QO|1<2|M|41.4,74.0|Z|2248;Isle of Dorn|N|Recruit Garrak.|CHAT|
 C Weapons and Warriors|QID|78996|QO|2<2|M|41.6,74.5|Z|2248;Isle of Dorn|N|Pick up weapon crate just inside building.|H|
 C Weapons and Warriors|QID|78996|QO|2<3|M|43.9,78.8|Z|2248;Isle of Dorn|N|Grab last weapon crate.|H|
-C Weapons and Warriors|QID|78996|QO|1<3|M|44.4,79.3|Z|2248;Isle of Dorn|N|Recruit Eiggard and Bertola - Inside bottom of building.|CHAT|
+C Weapons and Warriors|QID|78996|QO|1<4|M|44.4,79.3|Z|2248;Isle of Dorn|N|Recruit Eiggard and Bertola - Inside bottom of building.|CHAT|
 C Weapons and Warriors|QID|78996|QO|1<5|M|44.7,79.3|Z|2248;Isle of Dorn|N|Merrimack is at the top of the tower.|CHAT|
 T For The Love of Gems|QID|82441|M|43.03,69.99|Z|2248;Isle of Dorn|N|To Natalia Pearce.|
 A Precious Gems|QID|82465|PRE|82441|M|43.03,69.99|Z|2248;Isle of Dorn|N|From Natalia Pearce.|RANK|2|
@@ -229,6 +230,7 @@ K Roth the Earthwound|ACTIVE|83336|QO|1|M|60.23,53.34|Z|2248;Isle of Dorn|N|Kill
 T The Earthwound|QID|83336|M|55.56,55.90|Z|2248;Isle of Dorn|N|To Freysworn Etterca.|
 A Delver's Call: Fungal Folly|QID|83758|M|55.35,55.92|Z|2248;Isle of Dorn|N|From poster on other side of piller. The Delves are not included in the guide, so do them when you want.|RANK|2|
 A Delver's Call: Kriegval's Rest|QID|83759|M|55.35,55.92|Z|2248;Isle of Dorn|N|From poster.|RANK|2|
+T Delver's Call: Earthcrawl Mines|QID|85648|M|55.20,55.86|Z|2248;Isle of Dorn|N|To Bondaz.|RANK|2|
 t Delver's Call: Fungal Folly|QID|83758|M|55.21,55.91|Z|2248;Isle of Dorn|N|To Bondaz.|IZ|Crossroads Plaza|
 t Delver's Call: Kriegval's Rest|QID|83759|M|55.22,55.82|N|To Bondaz.|IZ|Crossroads Plaza|
 T Frayed Legacy|QID|78570|M|53.56,69.88|Z|2248;Isle of Dorn|N|To Woldtender Igris.|
@@ -241,7 +243,7 @@ T Mycomayhem|QID|78571|M|53.56,69.94|Z|2248;Isle of Dorn|N|To Woldtender Igris.|
 A Wold Memories|QID|78572|PRE|78571|M|53.56,69.94|Z|2248;Isle of Dorn|N|From Woldtender Igris.|RANK|2|
 C Wold Memories|QID|78572|QO|1|M|54.11,65.44|Z|2248;Isle of Dorn|N|Go inside Freydrin's Hovel.|
 C Wold Memories|QID|78572|QO|2|M|54.27,65.51|Z|2248;Isle of Dorn|N|Check Urn on bookcase.|H|
-C Wold Memories|QID|78572|QO|3|M|54.17,65.27|Z|2248;Isle of Dorn|N|Check journal on Hearth.|H|
+C Wold Memories|QID|78572|QO|3|M|54.17,65.27|Z|2248;Isle of Dorn|N|Check gem on Hearth.|H|
 C Wold Memories|QID|78572|QO|4|M|54.52,65.19|Z|2248;Isle of Dorn|N|Read Pledge on lower level of house.|H|
 C Wold Memories|QID|78572|QO|5|M|54.37,65.05|Z|2248;Isle of Dorn|N|Pick up the Shillelagh from lower hearth.|H|
 T Wold Memories|QID|78572|M|54.25,65.31|Z|2248;Isle of Dorn|N|To Woldtender Igris.|
@@ -518,13 +520,14 @@ C The Old Guard|QID|83087|QO|1|M|47.82,23.27|Z|2248;Isle of Dorn|N|Investigate C
 C The Old Guard|QID|83087|QO|2|M|47.82,23.27|Z|2248;Isle of Dorn|N|Investigate Collapsed Tunnel.|EAB|
 K Manifested Protocol|ACTIVE|83087|QO|3|M|47.82,23.27|Z|2248;Isle of Dorn|N|Manifested Protocol killed.|EAB|
 T The Old Guard|QID|83087|M|44.92,20.61|Z|2248;Isle of Dorn|N|From Dagran Thaurissan II.|
-N Come back later|AVAILABLE|79526|N|The final parts of the Sojourner achievement can be earned after doing The Ringing Deeps for Behind Closed Doors and Hallowfall for Brotherhood in the Skolzgal Wood.|
+N Come back later|AVAILABLE|79526&83543|N|The final parts of the Sojourner achievement can be earned after doing The Ringing Deeps for Behind Closed Doors and Hallowfall for Brotherhood in the Skolzgal Wood.|
 
 ;============Isle of Dorn wrap up=============
 
 ;Merrix and Steelvein Quest line for Sojourner of IoD
 A The Councilward Summons|QID|79542|PRE|79525&79354|M|47.49,32.68|Z|2214; The Ringing Deeps|N|From Saradi|RANK|2|IZ|The Ringing Deeps|;also offered it The ringing deeps -- correct PRE?
 A The Councilward's Summons|QID|79542|PRE|79525&79354|M|45.97,47.31|Z|2339;Dornogal|N|From Saradi.|RANK|2|IZ|Dornogal|
+A The Councilward's Summons|QID|79542|PRE|83543&83087|M|45.97,47.31|Z|2339;Dornogal|N|From Saradi.|RANK|2|IZ|2339^2248|;This quest is also obtainable in Adventure mode after completing the Isle of Dorn
 C The Councilward's Summons|QID|79542|M|55.33,6.34|Z|2339;Dornogal|QO|1|NC|N|Meet Merrix at the Councilward's Rise.|
 T The Councilward's Summons|QID|79542|M|55.33,6.34|Z|2339;Dornogal|N|To Merrix.|
 A Dornogal's Benefactor|QID|79543|PRE|79542|M|55.33,6.34|Z|2339;Dornogal|N|From Merrix.|RANK|2|
@@ -549,7 +552,7 @@ C The Market Reeve of the Forgegrounds|QID|79545|M|50.60,63.42|Z|2339;Dornogal|Q
 C The Market Reeve of the Forgegrounds|QID|79545|M|49.69,73.02|Z|2339;Dornogal|QO|10|NC|N|Nernabel's signature acquired.|
 T The Market Reeve of the Forgegrounds|QID|79545|M|45.24,48.73|Z|2339;Dornogal|N|To Vokgret.|
 A Opals and Runes|QID|79176|PRE|79545|M|45.24,48.73|Z|2339;Dornogal|N|From Vokgret.|RANK|2|
-B Opals and Runes|ACTIVE|79176|M|55.47,50.29|Z|2339;Dornogal|N|Trade for the Speakeasy Passrune.|
+B Opals and Runes|ACTIVE|79176|QO|1|M|55.47,50.29|Z|2339;Dornogal|N|Trade for the Speakeasy Passrune.|
 T Opals and Runes|QID|79176|M|60.41,33.38|Z|2339;Dornogal|N|To Merrix.|
 A The Machine Speakeasy|QID|79546|PRE|79176|M|60.52,33.33|Z|2339;Dornogal|N|From Merrix.|RANK|2|
 R The Corridors|ACTIVE|79546|M|62.16,49.17|Z|Dornogal|N|Make your way to the The Corridors.|
@@ -584,10 +587,10 @@ T Bad Business|QID|79530|M|42.51,24.02|Z|2214;The Ringing Deeps|N|To Steelvein.|
 
 ;Brotherhood in the Skolzgal Wood Quest line.
 
-R Crossroads Plaza|AVAILABLE|80456|PRE|78630|M|55.34,55.84|Z|2248;Isle of Dorn|N|make your way back towards Dornogal.|RANK|2|;this is my best guess as to the PRE - not certain.
-A A Sassy Arathi|QID|80456|PRE|78630|M|55.34,55.84|Z|2248;Isle of Dorn|N|From Dornogal Citizen.|RANK|2|
-T A Sassy Arathi|QID|80456|M|54.32,19.42|Z|2339;Dornogal|N|To Dornogal Citizen.|
-A An Oddball in Dornogal|QID|80209|PRE|80456|M|54.32,19.42|Z|2339;Dornogal|N|From Dornogal Citizen.|RANK|2|
+R Crossroads Plaza|AVAILABLE|80456|PRE|78630^83543|M|55.34,55.84|Z|2248;Isle of Dorn|N|make your way back towards Dornogal.|RANK|2|;this is my best guess as to the PRE - not certain.
+A A Sassy Arathi|QID|80456|PRE|78630^83543|M|55.34,55.84|Z|2248;Isle of Dorn|N|From Dornogal Citizen.|RANK|2|; Also available in adventure mode after completing the Isle of Dorn
+T A Sassy Arathi|QID|80456|M|54.32,19.42|Z|2339;Dornogal|N|To Peacekeeper Leif.|
+A An Oddball in Dornogal|QID|80209|PRE|80456|M|54.32,19.42|Z|2339;Dornogal|N|From Peacekeeper Leif.|RANK|2|
 C An Oddball in Dornogal|QID|80209|QO|1|M|54.51,24.17;56.77,27.87;51.50,11.36|CS|Z|2339;Dornogal|N|Talk to the Concerned Dornogal Citizen.|CHAT|
 T An Oddball in Dornogal|QID|80209|M|67.29,18.71|Z|2339;Dornogal|N|To Peacekeeper Leif.|
 A Found Around the Unbound|QID|80210|PRE|80209|M|67.29,18.71|Z|2339;Dornogal|N|From Peacekeeper Leif.|RANK|2|
@@ -624,7 +627,7 @@ T A Lamplight for the Shipwright|QID|80217|M|65.96,23.85|Z|2248;Isle of Dorn|N|T
 A Up to No Good Down in Silkwood|QID|80218|PRE|80217|M|65.96,23.85|Z|2248;Isle of Dorn|N|From Lamplighter Kaerter.|RANK|2|
 A Best Friends, Same Ends|QID|83181|PRE|80217|M|65.96,23.85|Z|2248;Isle of Dorn|N|From Peacekeeper Leif.|RANK|2|
 C Up to No Good Down in Silkwood|QID|80218|QO|1|M|64.52,20.15;64.40,20.57;63.88,20.06;64.12,21.33|CS|Z|2248;Isle of Dorn|N|Collect Silkwood Explosive Barrels.|H|S|
-K Shipwright Isaebela|ACTIVE|83181|QO|1|M|64.45,21.18|Z|2248;Isle of Dorn|N|Kill Shipwright Isaebela.|T|Shipwright Isaebela|
+K Shipwright Isaebela|ACTIVE|83181|QO|1|M|64.86, 19.91;64.45,21.18|CS|Z|2248;Isle of Dorn|N|In a cave. Kill Shipwright Isaebela.|T|Shipwright Isaebela|
 K Shadowspinner Azarak|ACTIVE|83181|QO|2|M|64.45,21.18|Z|2248;Isle of Dorn|N|Kill Shadowspinner Azarak.|T|Shadowspinner Azarak|
 C Up to No Good Down in Silkwood|QID|80218|QO|1|M|64.40,20.57;63.88,20.06;64.12,21.33|CS|Z|2248;Isle of Dorn|N|Finish picking up the Silkwood Explosive Barrels|H|US|
 C Up to No Good Down in Silkwood|QID|80218|QO|2|M|63.69,20.68|Z|2248;Isle of Dorn|N|Place explosives.|H|
