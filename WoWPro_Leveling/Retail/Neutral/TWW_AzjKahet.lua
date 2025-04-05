@@ -1,7 +1,7 @@
 local guide = WoWPro:RegisterGuide('Azj Kahet', 'Leveling', 'Azj-Kahet', 'WoWPro Team', 'Neutral')
 WoWPro:GuideName(guide,"Azj Kahet")
 WoWPro:GuideContent(guide, 10)
-WoWPro:GuideLevels(guide,70, 80)
+WoWPro:GuideLevels(guide,68, 80)
 WoWPro:GuideQuestTriggers(guide, 83552)
 WoWPro:GuideSort(guide, 5)
 WoWPro:GuideNextGuide(guide, 'Max Level Campaign')
@@ -61,7 +61,7 @@ C The Tangled Web|QID|78392|M|55.53,43.85|Z|2255;Azj-Kahet|QO|3|CHAT|N|Learn abo
 C The Tangled Web|QID|78392|M|55.53,43.85|Z|2255;Azj-Kahet|QO|4|CHAT|N|Learn about the Queen's allies.|
 T The Tangled Web|QID|78392|M|55.53,43.85|Z|2255;Azj-Kahet|N|To Widow Arak'nai.|
 A Delver's Call: Tak-Rethan Abyss|QID|83771|M|56.72,40.76|Z|2255;Azj-Kahet|N|From The Book.|RANK|3|
-t Delver's Call: Tak-Rethan Abyss|QID|83771|M|56.72,40.76|Z|2255;Azj-Kahet|N|To Brann Bronzebeard.|IZ|The Weaver's Lair|
+t Delver's Call: Tak-Rethan Abyss|QID|83771|M|55.82,44.07|Z|2255;Azj-Kahet|N|To Widow Arak'nai.|IZ|The Weaver's Lair|
 C A Seeming Respite|QID|78393|M|56.87,38.95|Z|2255;Azj-Kahet|QO|3|NC|N|Innkeeper located.|
 C A Seeming Respite|QID|78393|M|57.00,41.85|Z|2255;Azj-Kahet|QO|2|NC|N|Repair vendor located.|
 C A Seeming Respite|QID|78393|M|56.89,46.96|Z|2255;Azj-Kahet|QO|1|NC|N|Flight Master located.|
@@ -241,7 +241,7 @@ A What We Still Have|QID|78248|M|60.63,68.85|Z|2255;Azj-Kahet|N|From Alleria Win
 A A Fin of Every Kind|QID|79710|M|60.03,66.18|Z|2255;Azj-Kahet|N|From Al'kubian.|RANK|2|
 ;In patch 11.0.7 Blizzard have changed  "That's Pretty Gross" to now be started directly from the item on the ground
 ;l Familiar-Looking Appendage|ACTIVE|79710|AVAILABLE|79711|L|214504|M|55.84,69.45|Z|2255;Azj-Kahet|N|Kill Gutter Scarfer's and loot Familiar-Looking Appendage.|RANK|2|
-C A Fin of Every Kind|QID|79710|M|55.84,69.45|Z|2255;Azj-Kahet|N|Kill and loot the things in and around the bond to fill the sack.|
+C A Fin of Every Kind|QID|79710|M|55.84,69.45|Z|2255;Azj-Kahet|N|Kill and loot the things in and around the pond to fill the sack.|
 A That's Pretty Gross|QID|79711|M|59.7,69.2|Z|2255;Azj-Kahet|N|From  Familiar-Looking Appendage. Lying on the bottom of the pool.|RANK|2|
 T A Fin of Every Kind|QID|79710|M|59.96,66.12|Z|2255;Azj-Kahet|N|To Al'kubian.|
 T That's Pretty Gross|QID|79711|M|59.96,66.12|Z|2255;Azj-Kahet|N|To Al'kubian.|
