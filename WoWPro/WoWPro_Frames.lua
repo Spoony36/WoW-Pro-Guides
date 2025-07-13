@@ -583,25 +583,27 @@ end)
         end
     end)
     WoWPro.Titlebar:SetScript ("OnDoubleClick", function (this, button)
-        if WoWPro.GuideFrame:IsVisible() then
-            if WoWPro.StickyFrame:IsShown() then WoWPro.StickyFrame:Hide(); WoWPro.StickyHide = true end
-            WoWPro.GuideFrame:Hide()
-            WoWPro.OldHeight = WoWPro.MainFrame:GetHeight()
-            WoWPro.MainFrame:StartSizing("TOP")
-            WoWPro.MainFrame:SetHeight(this:GetHeight())
-            WoWPro.MainFrame:StopMovingOrSizing()
-            WoWPro.MainFrame:SetUserPlaced(false)
-            WoWPro.AnchorStore("OnDoubleClick1")
-        else
-            WoWPro.GuideFrame:Show()
-            if WoWPro.StickyHide then WoWPro.StickyFrame:Show(); WoWPro.StickyHide = false end
-            WoWPro.MainFrame:StartSizing("TOP")
-            WoWPro.MainFrame:SetHeight(WoWPro.OldHeight)
-            WoWPro.MainFrame:StopMovingOrSizing()
-            WoWPro.MainFrame:SetUserPlaced(false)
-            WoWPro.AnchorStore("OnDoubleClick0")
-            WoWPro:UpdateGuide("DoubleClick")
-        end
+    if not WoWPro.MainFrameCollapsed then
+        if WoWPro.StickyFrame:IsShown() then WoWPro.StickyFrame:Hide(); WoWPro.StickyHide = true end
+        WoWPro.GuideFrame:Hide()
+        WoWPro.OldHeight = WoWPro.MainFrame:GetHeight()
+        WoWPro.MainFrame:StartSizing("TOP")
+        WoWPro.MainFrame:SetHeight(this:GetHeight())
+        WoWPro.MainFrame:StopMovingOrSizing()
+        WoWPro.MainFrame:SetUserPlaced(false)
+        WoWPro.AnchorStore("OnDoubleClick1")
+        WoWPro.MainFrameCollapsed = true
+    else
+        WoWPro.GuideFrame:Show()
+        if WoWPro.StickyHide then WoWPro.StickyFrame:Show(); WoWPro.StickyHide = false end
+        WoWPro.MainFrame:StartSizing("TOP")
+        WoWPro.MainFrame:SetHeight(WoWPro.OldHeight or 300)
+        WoWPro.MainFrame:StopMovingOrSizing()
+        WoWPro.MainFrame:SetUserPlaced(false)
+        WoWPro.AnchorStore("OnDoubleClick0")
+        WoWPro.MainFrameCollapsed = false
+        WoWPro:UpdateGuide("DoubleClick")
+    end
     end)
 end
 -- Sticky Frame --
