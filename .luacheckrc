@@ -1,20 +1,10 @@
-exclude_files = {
-    "**/Libraries/**",
-}
-
-max_line_length = false
-self = false
-unused_args = false
-std = "none"
+std = "lua51"
 globals = {
-    "_G",
-    "WoWPro",
-    "WoWPro_Locale",
-    "WoWProDB",
-    "WoWProCharDB",
-
-    "TourGuide",
+  "WoWPro",
+  "WoWProDB",
+  "WoWProCharDB",
+  "_G"
 }
 ignore = {
-    "211/_.*", -- Unused local variable starting with _
+  "631", -- line is too long
 }

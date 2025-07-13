@@ -334,6 +334,11 @@ function WoWPro.SetMouseNotesPoints()
 end
 
 function WoWPro.AnchorStore(where)
+    -- Only store anchor if not collapsed
+    if WoWPro.Collapsed then
+        WoWPro:dbp("AnchorStore(%s): Skipped storing anchor because frame is collapsed.", where)
+        return
+    end
     -- Update the position when we are no longer in combat
     WoWPro.MainFrame:SetScript("OnUpdate", function()
         if not WoWPro.MaybeCombatLockdown() then
@@ -372,7 +377,11 @@ function WoWPro.AnchorRestore(reset_size)
     end
     WoWPro.MainFrame:SetPoint(unpack(pos))
     local size = WoWProDB.profile.size
-    if size and not reset_size then
+    if WoWPro.Collapsed then
+        -- If collapsed, set to collapsed height
+        WoWPro.MainFrame:SetHeight(WoWPro.Titlebar:GetHeight())
+        WoWPro:dbp("AnchorRestore: Collapsed, set height to titlebar height.")
+    elseif size and not reset_size then
         WoWPro.MainFrame:SetHeight(size[1])
         WoWPro.MainFrame:SetWidth(size[2])
         WoWPro:dbp("AnchorRestore: Height=%.2f Width=%.2f restored.", size[1], size[2])
@@ -583,27 +592,27 @@ end)
         end
     end)
     WoWPro.Titlebar:SetScript ("OnDoubleClick", function (this, button)
-    if not WoWPro.MainFrameCollapsed then
-        if WoWPro.StickyFrame:IsShown() then WoWPro.StickyFrame:Hide(); WoWPro.StickyHide = true end
-        WoWPro.GuideFrame:Hide()
-        WoWPro.OldHeight = WoWPro.MainFrame:GetHeight()
-        WoWPro.MainFrame:StartSizing("TOP")
-        WoWPro.MainFrame:SetHeight(this:GetHeight())
-        WoWPro.MainFrame:StopMovingOrSizing()
-        WoWPro.MainFrame:SetUserPlaced(false)
-        WoWPro.AnchorStore("OnDoubleClick1")
-        WoWPro.MainFrameCollapsed = true
-    else
-        WoWPro.GuideFrame:Show()
-        if WoWPro.StickyHide then WoWPro.StickyFrame:Show(); WoWPro.StickyHide = false end
-        WoWPro.MainFrame:StartSizing("TOP")
-        WoWPro.MainFrame:SetHeight(WoWPro.OldHeight or 300)
-        WoWPro.MainFrame:StopMovingOrSizing()
-        WoWPro.MainFrame:SetUserPlaced(false)
-        WoWPro.AnchorStore("OnDoubleClick0")
-        WoWPro.MainFrameCollapsed = false
-        WoWPro:UpdateGuide("DoubleClick")
-    end
+        if WoWPro.GuideFrame:IsVisible() then
+            if WoWPro.StickyFrame:IsShown() then WoWPro.StickyFrame:Hide(); WoWPro.StickyHide = true end
+            WoWPro.GuideFrame:Hide()
+            WoWPro.OldHeight = WoWPro.MainFrame:GetHeight()
+            WoWPro.MainFrame:StartSizing("TOP")
+            WoWPro.MainFrame:SetHeight(this:GetHeight())
+            WoWPro.MainFrame:StopMovingOrSizing()
+            WoWPro.MainFrame:SetUserPlaced(false)
+            WoWPro.Collapsed = true -- Set collapsed flag
+            -- Do not persist collapsed state
+        else
+            WoWPro.GuideFrame:Show()
+            if WoWPro.StickyHide then WoWPro.StickyFrame:Show(); WoWPro.StickyHide = false end
+            WoWPro.MainFrame:StartSizing("TOP")
+            WoWPro.MainFrame:SetHeight(WoWPro.OldHeight)
+            WoWPro.MainFrame:StopMovingOrSizing()
+            WoWPro.MainFrame:SetUserPlaced(false)
+            WoWPro.Collapsed = false -- Clear collapsed flag
+            WoWPro.AnchorStore("OnDoubleClick0")
+            WoWPro:UpdateGuide("DoubleClick")
+        end
     end)
 end
 -- Sticky Frame --
