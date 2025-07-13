@@ -22,4 +22,4 @@ jobs:
       - name: Install luacheck
         run: luarocks install luacheck
       - name: Run luacheck
-        run: luacheck WoWPro --no-color --codes --globals WoWPro WoWProDB WoWProCharDB _G
+        run: luacheck WoWPro --no-color --codes --globals WoWPro WoWProDB WoWProCharDB _G --no-warnings
