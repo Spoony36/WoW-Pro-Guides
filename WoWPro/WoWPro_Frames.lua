@@ -46,6 +46,7 @@ function WoWPro:ResizeSet()
         WoWPro.MainFrame:SetHeight(WoWProDB.profile.vminresize)
     end
 end
+
 function WoWPro:DragSet()
     if WoWProDB.profile.drag then
         WoWPro.ButtonBar:SetScript("OnMouseDown", function(this, button)
