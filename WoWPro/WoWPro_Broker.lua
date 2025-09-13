@@ -1856,6 +1856,7 @@ function WoWPro.NextStep(guideIndex, rowIndex)
         WoWPro:Warning("WoWPro.NextStep(): WoWProCharDB.Guide[%q] is nil.  Let us punt.", tostring(GID))
         return 1
     end
+    guide.skipped = guide.skipped or {}
     if not guideIndex then guideIndex = 1 end --guideIndex is the position in the guide
     if not rowIndex then rowIndex = 1 end --rowIndex is the position on the rows
     local skip = true
@@ -4131,18 +4132,18 @@ _G.StaticPopupDialogs["WOWPRO_PICKQUEST"] = {
     text = "Please enter the quest ID to select and then click GO!",
     button1 = "Go!",
     button2 = "Never Mind",
-    OnAccept = function(self,data,data2) local qid = self.editBox:GetText() ; WoWPro:Questline(tonumber(qid)) end,
+    OnAccept = function(self,data,data2) local qid = self.EditBox:GetText() ; WoWPro:Questline(tonumber(qid)) end,
     hideOnEscape = true,
     preferredIndex = 3,
     hasEditBox = true,
-    OnShow = function (self, data) self.editBox:SetText("quest id #") end
+    OnShow = function (self, data) self.EditBox:SetText("quest id #") end
 }
 
 _G.StaticPopupDialogs["WOWPRO_CONFIRMPICK"] = {
     text = "Please enter the quest ID to select and then click GO!",
     button1 = "Go!",
     button2 = "Never Mind",
-    OnAccept = function(self,data,data2) local qid = self.editBox:GetText() ; WoWPro:Questline(tonumber(qid)) end,
+    OnAccept = function(self,data,data2) local qid = self.EditBox:GetText() ; WoWPro:Questline(tonumber(qid)) end,
     hideOnEscape = true,
     preferredIndex = 3,
     hasEditBox = false,

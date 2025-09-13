@@ -319,9 +319,9 @@ local defaults = { profile = {
     titlebar = true,
     titlecolor = {0.5, 0.5, 0.5, 1},
     bgtexture = [[Interface\Tooltips\UI-Tooltip-Background]],
-    bgcolor = {0.2, 0.2, 0.2, 0.7},
+    bgcolor = {0, 0, 0, 0.8},
     bordertexture = [[Interface\Tooltips\UI-Tooltip-Border]],
-    border = true,
+    border = false,
     stickytexture = [[Interface\Tooltips\UI-Tooltip-Background]],
     stickycolor = {0.8, 0.8, 0.8, 0.7},
     stepfont = [[Fonts\FRIZQT__.TTF]],
@@ -584,9 +584,6 @@ function WoWPro:OnEnable()
     local to_purge = {}
     for gid, guide in pairs(WoWPro.Guides) do
         if WoWPro.RETAIL and guide['TimerunningSeasonID'] ~= seasonID then
-            WoWPro:dbp("Queue %q to purge", gid)
-            table.insert(to_purge, gid)
-        elseif WoWPro.CLASSIC and guide['ClassicSeasonID'] ~= seasonID then
             WoWPro:dbp("Queue %q to purge", gid)
             table.insert(to_purge, gid)
         end
@@ -1422,7 +1419,7 @@ Difficulty[1] = {0,0.9,0.5} -- Red
 Difficulty[2] = {30/360,0.9,0.5} -- Orange
 Difficulty[3] = {60/360,0.9,0.5} -- Yellow
 Difficulty[4] = {120/360,0.9,0.5} -- Green
-Difficulty[5] = {0, 0, 0.5} -- Grey
+Difficulty[5] = {0, 0, 0.97} -- Off White
 
 function WoWPro:InterpolateHSL(l,h,r)
     -- WoWPro:dbp("WoWPro:InterpolateHSL([%f, %f, %f], [%f, %f, %f], %f)", l[1], l[2], l[3], h[1], h[2], h[3], r)
