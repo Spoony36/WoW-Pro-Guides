@@ -49,29 +49,59 @@ end
 
 function WoWPro:DragSet()
     if WoWProDB.profile.drag then
-        WoWPro.ButtonBar:SetScript("OnMouseDown", function(this, button)
-            if button == "LeftButton" and WoWProDB.profile.drag then
-                WoWPro.InhibitAnchorRestore = true
-                WoWPro.MainFrame:StartMoving()
-            elseif button == "RightButton" then
-                WoWPro.EasyMenu(WoWPro.DropdownMenu, this, "cursor", 0 , 0, "MENU");
-            end
-        end)
-        WoWPro.ButtonBar:SetScript("OnMouseUp", function(this, button)
-            if button == "LeftButton" and WoWProDB.profile.drag then
-                WoWPro.MainFrame:StopMovingOrSizing()
-                WoWPro.MainFrame:SetUserPlaced(false)
-                WoWPro.AnchorStore("OnMouseUp0")
-                WoWPro.InhibitAnchorRestore = false
-            end
-        end)
+        -- Check if button bar is visible, otherwise use titlebar for dragging
+        if WoWProDB.profile.buttonbar then
+            -- Button bar is visible - use it for dragging
+            WoWPro.ButtonBar:SetScript("OnMouseDown", function(this, button)
+                if button == "LeftButton" and WoWProDB.profile.drag then
+                    WoWPro.InhibitAnchorRestore = true
+                    WoWPro.MainFrame:StartMoving()
+                elseif button == "RightButton" then
+                    WoWPro.EasyMenu(WoWPro.DropdownMenu, this, "cursor", 0 , 0, "MENU");
+                end
+            end)
+            WoWPro.ButtonBar:SetScript("OnMouseUp", function(this, button)
+                if button == "LeftButton" and WoWProDB.profile.drag then
+                    WoWPro.MainFrame:StopMovingOrSizing()
+                    WoWPro.MainFrame:SetUserPlaced(false)
+                    WoWPro.AnchorStore("OnMouseUp0")
+                    WoWPro.InhibitAnchorRestore = false
+                end
+            end)
+            -- Clear titlebar drag handlers when button bar is handling drag
+            WoWPro.Titlebar:SetScript("OnMouseDown", nil)
+        else
+            -- Button bar is hidden - use titlebar for dragging
+            WoWPro.Titlebar:SetScript("OnMouseDown", function(this, button)
+                if button == "LeftButton" and WoWProDB.profile.drag then
+                    WoWPro.InhibitAnchorRestore = true
+                    WoWPro.MainFrame:StartMoving()
+                elseif button == "RightButton" then
+                    WoWPro.EasyMenu(WoWPro.DropdownMenu, this, "cursor", 0 , 0, "MENU");
+                end
+            end)
+            -- Clear button bar drag handlers when titlebar is handling drag
+            WoWPro.ButtonBar:SetScript("OnMouseDown", function(this, button)
+                if button == "RightButton" then
+                    WoWPro.EasyMenu(WoWPro.DropdownMenu, this, "cursor", 0 , 0, "MENU")
+                end
+            end)
+            WoWPro.ButtonBar:SetScript("OnMouseUp", function(this, button)
+            end)
+        end
     else
+        -- Dragging is disabled - clear all drag handlers
         WoWPro.ButtonBar:SetScript("OnMouseDown", function(this, button)
             if button == "RightButton" then
                 WoWPro.EasyMenu(WoWPro.DropdownMenu, menuFrame, "cursor", 0 , 0, "MENU")
             end
         end)
         WoWPro.ButtonBar:SetScript("OnMouseUp", function(this, button)
+        end)
+        WoWPro.Titlebar:SetScript("OnMouseDown", function(this, button)
+            if button == "RightButton" then
+                WoWPro.EasyMenu(WoWPro.DropdownMenu, this, "cursor", 0 , 0, "MENU");
+            end
         end)
     end
 end
@@ -441,8 +471,8 @@ end
 function WoWPro.CustomizeFrames()
     WoWPro:dbp("WoWPro.CustomizeFrames()")
     WoWPro.ResizeSet();
-    WoWPro.DragSet();
     WoWPro.TitlebarSet();
+    WoWPro.DragSet();
     WoWPro.PaddingSet();
     WoWPro.BackgroundSet();
     WoWPro.RowSet();
