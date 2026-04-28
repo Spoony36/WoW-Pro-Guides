@@ -4565,7 +4565,6 @@ end
 function WoWPro:IsQuestFlaggedCompleted(qid,force)
     if qid == "*" then return nil; end
     local QID = tonumber(qid)
-    local includeWarband = WoWProDB and WoWProDB.profile and WoWProDB.profile.useWarbandCompletion
     if not QID then
         -- is it a QID list?
         local quids = select("#", ("^&"):split(qid))
@@ -4591,31 +4590,53 @@ function WoWPro:IsQuestFlaggedCompleted(qid,force)
     if not WoWProCharDB.completedQIDs then
         WoWProCharDB.completedQIDs = {}
     end
+    if (WoWProDB and WoWProDB.profile and WoWProDB.profile.useWarbandCompletion) and (not WoWProCharDB.completedQIDsWarband) then
+        WoWProCharDB.completedQIDsWarband = {}
+    end
+
+    local function questCompleted(questID)
+        local hasCharacterCache = type(WoWProCharDB.completedQIDs[questID]) ~= "nil"
+        local useWarbandCompletion = WoWProDB and WoWProDB.profile and WoWProDB.profile.useWarbandCompletion
+        local hasWarbandCache = (not useWarbandCompletion) or (type(WoWProCharDB.completedQIDsWarband[questID]) ~= "nil")
+        if not force and hasCharacterCache and hasWarbandCache then
+            return WoWProCharDB.completedQIDs[questID] or (useWarbandCompletion and WoWProCharDB.completedQIDsWarband[questID]) or false
+        end
+
+        WoWProCharDB.completedQIDs[questID] = WoWPro.QuestLog_IsQuestFlaggedCompleted(questID) or false
+        if useWarbandCompletion then
+            WoWProCharDB.completedQIDsWarband[questID] = WoWPro.QuestLog_IsQuestFlaggedCompletedOnAccount(questID) or false
+        end
+        return WoWProCharDB.completedQIDs[questID] or (useWarbandCompletion and WoWProCharDB.completedQIDsWarband[questID]) or false
+    end
+
     if not force and type(WoWProCharDB.completedQIDs[QID]) ~= "nil" then
         if QID > 0 then
             if is_int(QID) then
-                return WoWProCharDB.completedQIDs[QID]
+                local useWarbandCompletion = WoWProDB and WoWProDB.profile and WoWProDB.profile.useWarbandCompletion
+                local wbCached = useWarbandCompletion and WoWProCharDB.completedQIDsWarband and WoWProCharDB.completedQIDsWarband[QID]
+                if (not useWarbandCompletion) or type(wbCached) ~= "nil" then
+                    return WoWProCharDB.completedQIDs[QID] or wbCached or false
+                end
             else
                 QID = floor(QID)
                 WoWProCharDB.completedQIDs[-QID] = not WoWPro.QuestLog[-QID]
                 return WoWProCharDB.completedQIDs[-QID]
             end
         else
-            return not WoWProCharDB.completedQIDs[-QID]
+            local value = questCompleted(-QID)
+            return not value
         end
     end
     if QID > 0 then
         if is_int(QID) then
-            WoWProCharDB.completedQIDs[QID] = WoWPro.QuestLog_IsQuestFlaggedCompleted(QID) or false
-            return WoWProCharDB.completedQIDs[QID]
+            return questCompleted(QID)
         else
             QID = floor(QID)
             WoWProCharDB.completedQIDs[-QID] = not WoWPro.QuestLog[-QID]
             return WoWProCharDB.completedQIDs[QID]
         end
     else
-        WoWProCharDB.completedQIDs[-QID] = WoWPro.QuestLog_IsQuestFlaggedCompleted(-QID) or false
-        return not WoWProCharDB.completedQIDs[-QID]
+        return not questCompleted(-QID)
     end
 end
 
