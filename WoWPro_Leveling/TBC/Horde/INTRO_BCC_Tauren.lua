@@ -288,7 +288,7 @@ R Orgrimmar|AVAILABLE|445|M|36.17,23.14;45.54,12.08|Z|Durotar|CC|N|At this point
 f Orgrimmar|AVAILABLE|445|M|47.58,65.27;45.41,63.88|Z|Orgrimmar|CC|N|Get the FP from Doras at the top of the tower.|TAXI|-Orgrimmar|
 
 R Leave Orgrimmar|AVAILABLE|445|M|52.42,84.43|Z|Orgrimmar|CC|N|Exit Orgrimmar through the south gate.|
-N READ FIRST: Druids|AVAILABLE|445|N|[color=FF0000]NOTE: [/color]Unfortunately, there is only one Druid class trainer outside of Kalimdor, In Silvermoon City. There is the Orb Of Translocation in the entry-way to Undercity that will take you to Silvermoon City.|R|Tauren|C|Druid|
+N READ FIRST: Druids|AVAILABLE|445|N|[color=FF0000]NOTE: [/color]Unfortunately, there is only one Druid class trainer outside of Kalimdor, in Silvermoon City. There is the Orb Of Translocation in the entry-way to Undercity that will take you to Silvermoon City.|R|Tauren|C|Druid|
 b Tirisfal Glades|AVAILABLE|445|M|50.88,13.83|Z|Durotar|N|Take the Zepplin to Tirisfal Glade.|
 R Undercity|AVAILABLE|445|M|61.86,65.04|Z|Tirisfal Glades|N|Enter Undercity.|
 f Undercity|AVAILABLE|445|M|63.86,48.04|Z|Undercity|N|Grab the FP from Michael Garrett.|TAXI|-Undercity|
