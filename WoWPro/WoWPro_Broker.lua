@@ -2225,42 +2225,42 @@ function WoWPro.UpdateGuideReal(From)
                 WoWPro.TitleText:SetText((GID or WoWPro.Guides[GID].zone) .. "   (0%)")
             end
         end
-        WoWPro.GuideUpdated = true
-        return
-    end
-
-    if WoWProDB.profile.guideprogress then
-        WoWPro.TitleText:SetText((WoWPro.Guides[GID].name or WoWPro.Guides[GID].zone) .. "   (" .. currentStep .. "/" .. total .. ")")
     else
-        if total > 0 then
-            local percentage = math.floor((currentMainStep / total) * 100)
-            WoWPro.TitleText:SetText((WoWPro.Guides[GID].name or WoWPro.Guides[GID].zone) .. "   (" .. percentage .. "%)")
+        if WoWProDB.profile.guideprogress then
+            WoWPro.TitleText:SetText((WoWPro.Guides[GID].name or WoWPro.Guides[GID].zone) .. "   (" .. currentStep .. "/" .. total .. ")")
         else
-            WoWPro.TitleText:SetText((GID or WoWPro.Guides[GID].zone) .. "   (0%)")
+            if total > 0 then
+                local percentage = math.floor((currentMainStep / total) * 100)
+                WoWPro.TitleText:SetText((WoWPro.Guides[GID].name or WoWPro.Guides[GID].zone) .. "   (" .. percentage .. "%)")
+            else
+                WoWPro.TitleText:SetText((GID or WoWPro.Guides[GID].zone) .. "   (0%)")
+            end
         end
-    end
 
-    -- If the guide is complete, loading the next guide --
-    if WoWProCharDB.Guide[GID].done and not WoWPro.Recorder and WoWPro.Leveling and not WoWPro.Leveling.Resetting then
-        if WoWProDB.profile.autoload then
-            WoWProDB.char.currentguide = WoWPro:NextGuide(GID)
-            WoWPro:Print("Switching to next guide: %s",tostring(WoWProDB.char.currentguide))
-            WoWPro:LoadGuide()
-            return
-        else
-            WoWPro.NextGuideDialog:Show()
+        -- If the guide is complete, loading the next guide --
+        if WoWProCharDB.Guide[GID].done and not WoWPro.Recorder and WoWPro.Leveling and not WoWPro.Leveling.Resetting then
+            if WoWProDB.profile.autoload then
+                WoWProDB.char.currentguide = WoWPro:NextGuide(GID)
+                WoWPro:Print("Switching to next guide: %s",tostring(WoWProDB.char.currentguide))
+                WoWPro:LoadGuide()
+                return
+            else
+                WoWPro.NextGuideDialog:Show()
+            end
         end
     end
     WoWPro:MapPoint()
-    if not WoWPro.GuideUpdated then
-        WoWPro:dbp("[Broker]: First Guide Update completed.  Resuming normal processing.")
-        WoWPro.GuideUpdated = true
-        WoWPro.EventReplayStart()
-    end
     WoWPro:SendMessage("WoWPro_PostUpdateGuide")
     -- Update content and formatting --
     WoWPro.PaddingSet()
     WoWPro.RowSet()
+    if not WoWPro.GuideUpdated then
+        WoWPro:dbp("[Broker]: First Guide Update completed.  Resuming normal processing.")
+        WoWPro.GuideUpdated = true
+        WoWPro:dbp("[Naughty Broker]: Invoke the ZONE_CHANGED_NEW_AREA event handler directly before Replay!")
+        WoWPro.ZONE_CHANGED_NEW_AREA("ZONE_CHANGED_NEW_AREA_GUIDE_UPDATE")
+        WoWPro.EventReplayStart()
+    end
 end
 
 
