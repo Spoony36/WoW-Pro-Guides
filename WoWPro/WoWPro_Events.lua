@@ -102,7 +102,7 @@ function WoWPro.Ready(who)
         return false
     end
     if not WoWPro.GuideUpdated then
-        WoWPro:dbp("%s not Read. Guide %s is not updated once yet!",(who or "Someone"), tostring(WoWProDB.char.currentguide))
+        WoWPro:dbp("%s not Ready. Guide %s is not updated once yet!",(who or "Someone"), tostring(WoWProDB.char.currentguide))
         return false
     end
     return true
@@ -118,21 +118,27 @@ end
 function WoWPro.EventReplay()
     local entry = table.remove(WoWPro.EventQueue, 1)
     if not entry then
-        WoWPro.EventFrame:SetScript("OnUpdate", nil)
-        return false
+        WoWPro:dbp("EventReplay: Hey! Nothing to do!")
+        return nil
     end
 
     local event = table.remove(entry, 1)
     WoWPro:dbp("EventReplay: Replaying event %s", event)
     WoWPro.EventHandler(WoWPro.EventFrame, event, unpack(entry))
+    if WoWPro.EventQueue[1] then
+        WoWPro:dbp("EventReplay: Queueing next Event Replay.")
+        _G.C_Timer.After(0.01, WoWPro.EventReplay)
+    else
+        WoWPro:dbp("EventReplay: DONE!")
+    end
     return event
 end
 
 -- This should be called after the first Guide Update
 function WoWPro.EventReplayStart()
     if WoWPro.EventQueue[1] then
-        WoWPro:dbp("EventReplayStart: Starting Event Replay.")
-        WoWPro.EventFrame:SetScript("OnUpdate", WoWPro.EventReplay)
+        WoWPro:dbp("EventReplayStart: Starting first Event Replay.")
+        WoWPro.EventReplay()
     else
         WoWPro:dbp("EventReplayStart: No events to Replay.")
     end
