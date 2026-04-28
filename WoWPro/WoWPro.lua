@@ -318,6 +318,7 @@ local defaults = { profile = {
     checksound = true,
     checksoundfile = 567416, -- MapPing
     rank = 2,
+    useWarbandCompletion = false,
     resize = false,
     autoresize = true,
     numsteps = 1,

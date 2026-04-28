@@ -133,6 +133,19 @@ local function createDisplayConfig()
                 set = function(info,val) WoWProDB.profile.track = val
                     WoWPro:UpdateGuide("Config: Quest Tracking") end
             },
+                        warbandcompleted = {
+                order = 10.2,
+                type = "toggle",
+                name = L["Use Warband Quest Completion"],
+                desc = L["Treat quests completed by another character in your Warband as completed for step filtering."],
+                get = function(info) return WoWProDB.profile.useWarbandCompletion end,
+                set = function(info,val)
+                    WoWProDB.profile.useWarbandCompletion = val
+                    WoWProCharDB.completedQIDs = {}
+                    WoWProCharDB.completedQIDsWarband = {}
+                    WoWPro:UpdateGuide("Config: Use Warband Quest Completion")
+                end
+            },
             showcoords = {
                 order = 11,
                 type = "toggle",

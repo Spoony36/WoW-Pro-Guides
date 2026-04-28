@@ -4565,6 +4565,7 @@ end
 function WoWPro:IsQuestFlaggedCompleted(qid,force)
     if qid == "*" then return nil; end
     local QID = tonumber(qid)
+    local includeWarband = WoWProDB and WoWProDB.profile and WoWProDB.profile.useWarbandCompletion
     if not QID then
         -- is it a QID list?
         local quids = select("#", ("^&"):split(qid))
