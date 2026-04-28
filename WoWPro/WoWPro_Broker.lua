@@ -2253,6 +2253,7 @@ function WoWPro.UpdateGuideReal(From)
     end
     WoWPro:MapPoint()
     if not WoWPro.GuideUpdated then
+        WoWPro:dbp("[Broker]: First Guide Update completed.  Resuming normal processing.")
         WoWPro.GuideUpdated = true
         WoWPro.EventReplayStart()
     end

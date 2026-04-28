@@ -111,6 +111,7 @@ end
 -- We do not expect this to get very big, so a simple implementation is fine.
 WoWPro.EventQueue = {}
 function WoWPro.EventPunt(event)
+    WoWPro:dbp("EventPunt: Punting event %s", event[1])
     table.insert(WoWPro.EventQueue, event)
 end
 
@@ -122,6 +123,7 @@ function WoWPro.EventReplay()
     end
 
     local event = table.remove(entry, 1)
+    WoWPro:dbp("EventReplay: Replaying event %s", event)
     WoWPro.EventHandler(WoWPro.EventFrame, event, unpack(entry))
     return event
 end
@@ -129,7 +131,10 @@ end
 -- This should be called after the first Guide Update
 function WoWPro.EventReplayStart()
     if WoWPro.EventQueue[1] then
+        WoWPro:dbp("EventReplayStart: Starting Event Replay.")
         WoWPro.EventFrame:SetScript("OnUpdate", WoWPro.EventReplay)
+    else
+        WoWPro:dbp("EventReplayStart: No events to Replay.")
     end
 end
 
