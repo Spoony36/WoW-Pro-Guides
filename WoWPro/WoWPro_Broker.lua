@@ -2635,7 +2635,7 @@ function WoWPro.NextStep(guideIndex, rowIndex)
                 local numprereqs = select("#", ("&"):split(pre))
                 for j=1,numprereqs do
                     local jprereq = select(numprereqs-j+1, ("&"):split(pre))
-                    if WoWProCharDB.skippedQIDs[tonumber(jprereq)] then
+                    if WoWProCharDB.skippedQIDs[tonumber(jprereq)] and not WoWPro:IsQuestFlaggedCompleted(jprereq, true) then
                         skip = true
                         WoWPro.why[guideIndex] = "NextStep(): Skipping step with skipped prerequisite."
                         WoWPro:dbp("MissingPreReq2(%d)",guideIndex)
