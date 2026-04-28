@@ -127,7 +127,7 @@ function WoWPro.EventReplay()
     WoWPro.EventHandler(WoWPro.EventFrame, event, unpack(entry))
     if WoWPro.EventQueue[1] then
         WoWPro:dbp("EventReplay: Queueing next Event Replay.")
-        _G.C_Timer.After(0.01, WoWPro.EventReplay)
+        _G.C_Timer.After((WoWProDB.global.QuestEngineDelay / 2.0), WoWPro.EventReplay)
     else
         WoWPro:dbp("EventReplay: DONE!")
     end
