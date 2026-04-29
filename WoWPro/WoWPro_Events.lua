@@ -97,11 +97,11 @@ function WoWPro.Ready(who)
         WoWPro:dbp("%s not Ready. Current guide invalid!",(who or "Someone"))
         return false
     end
-    if not WoWPro.GuideLoaded then
+    if WoWPro.GuideLoaded ~= true then
         WoWPro:dbp("%s not Ready. Guide %s is not loaded yet!",(who or "Someone"), tostring(WoWProDB.char.currentguide))
         return false
     end
-    if not WoWPro.GuideUpdated then
+    if WoWPro.GuideUpdated ~= true then
         WoWPro:dbp("%s not Ready. Guide %s is not updated once yet!",(who or "Someone"), tostring(WoWProDB.char.currentguide))
         return false
     end
