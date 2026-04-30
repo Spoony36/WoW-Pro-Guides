@@ -809,8 +809,13 @@ function WoWPro.PLAYER_CONTROL_LOST_PUNTED(event, ...)
     end
 end
 
-WoWPro.RegisterEventHandler("CHAT_MSG_SYSTEM", function(event, ...)
-    WoWPro:AutoCompleteSetHearth(...)
+WoWPro.RegisterEventHandler("HEARTHSTONE_BOUND", function(event, ...)
+    local loc = select(2, ...) or _G.GetBindLocation()
+    if not loc or (_G.issecretvalue and _G.issecretvalue(loc)) then
+        return
+    end
+    WoWPro:Print("Hearthstone bound to %s", loc)
+    WoWPro:AutoCompleteSetHearth(event, loc)
 end)
 
 if WoWPro.RETAIL then

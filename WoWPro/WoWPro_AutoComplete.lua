@@ -390,19 +390,17 @@ end
 
 
 -- Auto-Complete: Set hearth --
-function WoWPro:AutoCompleteSetHearth(...)
-    local msg = ...
-    if not ( _G.issecretvalue and _G.issecretvalue(msg) ) then
-        local _, _, loc = msg:find(L["(.*) is now your home."])
-        if loc then
-            WoWProCharDB.Guide.hearth = loc
-            for i = 1,15 do
-                local index = WoWPro.rows[i].index
-                if WoWPro.action[index] == "h" and WoWPro.step[index] == loc
-                and not WoWProCharDB.Guide[WoWProDB.char.currentguide].completion[index] then
-                    WoWPro.CompleteStep(index, "AutoCompleteSetHearth")
-                end
-            end
+function WoWPro:AutoCompleteSetHearth(event, loc)
+    if event ~= "HEARTHSTONE_BOUND" or not loc or (_G.issecretvalue and _G.issecretvalue(loc)) then
+        return
+    end
+
+    WoWProCharDB.Guide.hearth = loc
+    for i = 1,15 do
+        local index = WoWPro.rows[i].index
+        if WoWPro.action[index] == "h" and WoWPro.step[index] == loc
+        and not WoWProCharDB.Guide[WoWProDB.char.currentguide].completion[index] then
+            WoWPro.CompleteStep(index, "AutoCompleteSetHearth")
         end
     end
 end
