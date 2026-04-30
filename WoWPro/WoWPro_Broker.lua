@@ -2090,8 +2090,11 @@ function WoWPro.UpdateGuideReal(From)
     if not module or not module:IsEnabled() then return end
 
     -- Reconcile saved hearth location before selecting active step --
-    if WoWProCharDB.Guide[GID] and WoWProCharDB.Guide[GID].hearth then
-        WoWPro:AutoCompleteSetHearth(nil, WoWProCharDB.Guide[GID].hearth, true)
+    if WoWProCharDB.hearth then
+        WoWPro:AutoCompleteSetHearth(nil, WoWProCharDB.hearth, true)
+    elseif WoWProCharDB.Guide[GID] and WoWProCharDB.Guide[GID].hearth then
+        WoWProCharDB.hearth = WoWProCharDB.Guide[GID].hearth
+        WoWPro:AutoCompleteSetHearth(nil, WoWProCharDB.hearth, true)
     end
 
     -- Finding the active step in the guide --

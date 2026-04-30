@@ -396,7 +396,7 @@ function WoWPro:AutoCompleteSetHearth(event, loc, noUpdate)
         return
     end
 
-    WoWProCharDB.Guide.hearth = loc
+    WoWProCharDB.hearth = loc
     for i = 1,15 do
         local index = WoWPro.rows[i].index
         if WoWPro.action[index] == "h" and WoWPro.step[index] == loc
