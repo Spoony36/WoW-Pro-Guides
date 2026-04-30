@@ -19,9 +19,9 @@ A Signal for Pickup|QID|3451|M|70.86,94.54|Z|Ironforge|N|From Xiggs Fuselighter.
 T Signal for Pickup|QID|3451|M|70.86,94.54|Z|Ironforge|N|To Xiggs Fuselighter.|
 A Rise of the Silithid|QID|162|M|50.21,27.48|Z|Tanaris|N|From Senior Surveyor Fizzledowser.\nYou either didn't follow chapter 2 or you abandonded/ignored this. If you are seeing this that means you did the chain but skipped the follow-up. I would recommend grabbing this as it's worth quite a bit of experience for a simple hand-in.|PRE|113|
 
-R Darnassus|QID|3449|M|55.92,89.66|Z|Teldrassil|N|Make your way to Darnassus by whatever means.|
-B Mithril Casing|QID|4244|M|PLAYER|Z|Darnassus|N|Made by engineers, buy or make a Mithril Casing before you leave.|L|10561|ITEM|10561|
-B Portal: Darnassus|QID|3449|M|40.57,82.15|Z|Darnassus|N|[color=40C7EB]Mages:[/color]While you're here be sure to get your Portal:Darnassus. (Teleport as well if you haven't already)|LVL|51|C|Mage|SPELL|11419|
+R Darnassus|ACTIVE|3449|M|55.92,89.66|Z|Teldrassil|N|Make your way to Darnassus by whatever means.|
+B Mithril Casing|AVAILABLE|4244|M|PLAYER|Z|Darnassus|N|Made by engineers, buy or make a Mithril Casing before you leave.|L|10561|ITEM|10561|
+;= Portal: Darnassus|ACTIVE|3449|M|40.57,82.15|Z|Darnassus|N|[color=40C7EB]Mages:[/color]While you're here be sure to get your Portal:Darnassus. (Teleport as well if you haven't already)|LVL|51|C|Mage|SPELL|11419|
 T Rise of the Silithid|QID|162|M|41.82,85.63|Z|Darnassus|N|To Gracina Spiritmight.|
 A March of the Silithid|QID|4493|M|41.82,85.63|Z|Darnassus|N|From Gracina Spiritmight.|LVL|50|
 T Assisting Arch Druid Staghelm|QID|3790|M|35.31,8.94|Z|Darnassus|N|To Arch Druid Staghelm. Up on top of the tree.|
