@@ -367,6 +367,7 @@ function WoWPro:OnInitialize()
     WoWProDB.char = WoWProDB.char or {}
     WoWProCharDB.Guide = WoWProCharDB.Guide or {}
     WoWProCharDB.completedQIDs = WoWProCharDB.completedQIDs or {}
+    WoWProCharDB.completedQIDsWarband = WoWProCharDB.completedQIDsWarband or {}
     WoWProCharDB.skippedQIDs = WoWProCharDB.skippedQIDs or {}
     WoWProDB.profile.position = WoWProDB.profile.position or {"CENTER", "UIParent" , "CENTER", 0, 0}
     WoWProDB.profile.anchorpoint = nil  -- Clean out old setting

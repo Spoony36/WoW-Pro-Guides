@@ -4590,7 +4590,7 @@ function WoWPro:IsQuestFlaggedCompleted(qid,force)
     if not WoWProCharDB.completedQIDs then
         WoWProCharDB.completedQIDs = {}
     end
-    if (WoWProDB and WoWProDB.profile and WoWProDB.profile.useWarbandCompletion) and (not WoWProCharDB.completedQIDsWarband) then
+    if not WoWProCharDB.completedQIDsWarband then
         WoWProCharDB.completedQIDsWarband = {}
     end
 
