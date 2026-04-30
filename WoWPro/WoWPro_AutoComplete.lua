@@ -5,8 +5,6 @@
 --  WoWPro_AutoComplete  --
 ---------------------------
 
-local L =  WoWPro_Locale
-
 -- Remember Taxi Locations
 function WoWPro:RecordTaxiLocations(...)
     local _event = ...
