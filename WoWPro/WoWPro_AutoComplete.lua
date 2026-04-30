@@ -388,8 +388,11 @@ end
 
 
 -- Auto-Complete: Set hearth --
-function WoWPro:AutoCompleteSetHearth(event, loc)
-    if event ~= "HEARTHSTONE_BOUND" or not loc or (_G.issecretvalue and _G.issecretvalue(loc)) then
+function WoWPro:AutoCompleteSetHearth(event, loc, noUpdate)
+    if event and event ~= "HEARTHSTONE_BOUND" then
+        return
+    end
+    if not loc or (_G.issecretvalue and _G.issecretvalue(loc)) then
         return
     end
 
@@ -398,7 +401,7 @@ function WoWPro:AutoCompleteSetHearth(event, loc)
         local index = WoWPro.rows[i].index
         if WoWPro.action[index] == "h" and WoWPro.step[index] == loc
         and not WoWProCharDB.Guide[WoWProDB.char.currentguide].completion[index] then
-            WoWPro.CompleteStep(index, "AutoCompleteSetHearth")
+            WoWPro.CompleteStep(index, "AutoCompleteSetHearth", noUpdate)
         end
     end
 end
