@@ -4612,11 +4612,7 @@ function WoWPro:IsQuestFlaggedCompleted(qid,force)
     if not force and type(WoWProCharDB.completedQIDs[QID]) ~= "nil" then
         if QID > 0 then
             if is_int(QID) then
-                local useWarbandCompletion = WoWProDB and WoWProDB.profile and WoWProDB.profile.useWarbandCompletion
-                local wbCached = useWarbandCompletion and WoWProCharDB.completedQIDsWarband and WoWProCharDB.completedQIDsWarband[QID]
-                if (not useWarbandCompletion) or type(wbCached) ~= "nil" then
-                    return WoWProCharDB.completedQIDs[QID] or wbCached or false
-                end
+                return questCompleted(QID)
             else
                 QID = floor(QID)
                 WoWProCharDB.completedQIDs[-QID] = not WoWPro.QuestLog[-QID]

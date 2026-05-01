@@ -142,7 +142,6 @@ local function createDisplayConfig()
                 get = function(info) return WoWProDB.profile.useWarbandCompletion end,
                 set = function(info,val)
                     WoWProDB.profile.useWarbandCompletion = val
-                    WoWProCharDB.completedQIDs = {}
                     WoWProCharDB.completedQIDsWarband = {}
                     WoWPro:UpdateGuide("Config: Use Warband Quest Completion")
                 end
