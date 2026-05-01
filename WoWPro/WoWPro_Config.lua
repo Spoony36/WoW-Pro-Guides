@@ -138,6 +138,7 @@ local function createDisplayConfig()
                 type = "toggle",
                 name = L["Use Warband Quest Completion"],
                 desc = L["Treat quests completed by another character in your Warband as completed for step filtering."],
+                hidden = function() return not WoWPro.RETAIL end,
                 get = function(info) return WoWProDB.profile.useWarbandCompletion end,
                 set = function(info,val)
                     WoWProDB.profile.useWarbandCompletion = val
