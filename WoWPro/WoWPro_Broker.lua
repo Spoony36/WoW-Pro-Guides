@@ -2853,6 +2853,8 @@ function WoWPro.NextStep(guideIndex, rowIndex)
                 local zonetext, subzonetext = _G.GetZoneText(), _G.GetSubZoneText():trim()
                 if (step == zonetext or step == subzonetext) and ( rowIndex == 1) and not guide.completion[guideIndex] then
                     WoWPro.CompleteStep(guideIndex,"AutoCompleteZoneBroker")
+                    WoWPro:dbp("Step %s [%s/%s] skipped because current zone matches step location",stepAction,step,tostring(QID))
+                    WoWPro.why[guideIndex] = "NextStep(): Skipping travel step because current zone matches current location."
                     skip = true
                     break
                 end

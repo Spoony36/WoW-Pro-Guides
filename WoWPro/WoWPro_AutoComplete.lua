@@ -397,10 +397,12 @@ function WoWPro:AutoCompleteSetHearth(event, loc, noUpdate)
     end
 
     WoWProCharDB.hearth = loc
+    WoWPro:dbp("AutoCompleteSetHearth: hearth bound to [%s] globally via event [%s]", loc, tostring(event))
     for i = 1,15 do
         local index = WoWPro.rows[i].index
         if WoWPro.action[index] == "h" and WoWPro.step[index] == loc
         and not WoWProCharDB.Guide[WoWProDB.char.currentguide].completion[index] then
+            WoWPro:dbp("AutoCompleteSetHearth: completing h-step index %d step [%s] because hearth matches", index, loc)
             WoWPro.CompleteStep(index, "AutoCompleteSetHearth", noUpdate)
         end
     end
