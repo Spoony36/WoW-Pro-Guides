@@ -541,6 +541,7 @@ function WoWPro.RowSizeSet()
     local pad = WoWProDB.profile.pad
     local biggeststep = 0
     local totalh, maxh = 0, WoWPro.GuideFrame:GetHeight()
+    local guideWindowCropped = false
 
     -- Get current expansion anchor (default to TOPLEFT if not set)
     local expansionAnchor = WoWProDB.profile.expansionAnchor or "TOPLEFT"
@@ -692,6 +693,7 @@ function WoWPro.RowSizeSet()
         else
             totalh = totalh + newh
             if totalh > maxh then
+                guideWindowCropped = true
                 for j=i,15 do
                     WoWPro.rows[j]:Hide()
                         if not _G.InCombatLockdown() then
@@ -783,6 +785,9 @@ function WoWPro.RowSizeSet()
             end
 
             -- Clamp calculated height to not exceed screen edge
+            if totalh > maxHeightScreen then
+                guideWindowCropped = true
+            end
             totalh = math.min(totalh, maxHeightScreen)
 
             -- Temporarily disable clamping to allow frame to grow upward for bottom-anchored frames
@@ -816,6 +821,17 @@ function WoWPro.RowSizeSet()
         elseif frameTop and frameTop > screenH and frameBottom then
             local newHeight = math.max(minHeight, screenH - frameBottom)
             WoWPro.MainFrame:SetHeight(newHeight)
+        end
+    end
+
+    if not _G.InCombatLockdown() then
+        if guideWindowCropped then
+            if not WoWPro.CroppedGuideWarning then
+                WoWPro:Print("|cffffff00WoWPro: Screen height limits guide visibility. Enable mouseover notes or reduce displayed rows.|r")
+                WoWPro.CroppedGuideWarning = true
+            end
+        else
+            WoWPro.CroppedGuideWarning = nil
         end
     end
 
