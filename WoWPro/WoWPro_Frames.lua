@@ -789,6 +789,7 @@ function WoWPro.RowSizeSet()
             local wasClampedToScreen = WoWPro.MainFrame:IsClampedToScreen()
             WoWPro.MainFrame:SetClampedToScreen(false)
             WoWPro.MainFrame:SetHeight(totalh)
+            WoWPro.PaddingSet()
             WoWPro.MainFrame:SetClampedToScreen(wasClampedToScreen)
 
             -- For bottom-anchored frames, re-establish the anchor after resize to ensure bottom doesn't drift
