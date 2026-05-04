@@ -2089,11 +2089,8 @@ function WoWPro.UpdateGuideReal(From)
     local module = WoWPro:GetModule(WoWPro.Guides[GID].guidetype)
     if not module or not module:IsEnabled() then return end
 
-    -- Reconcile saved hearth location before selecting active step --
+    -- If we already know the current hearth bind, try to auto-complete any matching h step before selecting the active step --
     if WoWProCharDB.hearth then
-        WoWPro:AutoCompleteSetHearth(nil, WoWProCharDB.hearth, true)
-    elseif WoWProCharDB.Guide[GID] and WoWProCharDB.Guide[GID].hearth then
-        WoWProCharDB.hearth = WoWProCharDB.Guide[GID].hearth
         WoWPro:AutoCompleteSetHearth(nil, WoWProCharDB.hearth, true)
     end
 
