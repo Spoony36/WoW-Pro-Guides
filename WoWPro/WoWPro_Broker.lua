@@ -2845,6 +2845,13 @@ function WoWPro.NextStep(guideIndex, rowIndex)
                 break
             end
 
+            -- Auto-complete "h" steps if the hearth is already set to that location
+            if stepAction == "h" and WoWProCharDB.hearth and step == WoWProCharDB.hearth then
+                WoWPro.CompleteStep(guideIndex, "AutoCompleteSetHearth", true)
+                skip = true
+                break
+            end
+
             -- Complete Travel steps if we are in the right zone already
             if stepAction == "F" or stepAction == "H" or stepAction == "b" or stepAction == "P" or stepAction == "R" then
                 local zonetext, subzonetext = _G.GetZoneText(), _G.GetSubZoneText():trim()
