@@ -293,7 +293,7 @@ A Displaced Denizens|QID|86740|M|46.68,45.67|Z|2395; Eversong Woods|N|From Orwey
 A Cargo Conspiracy|QID|87392|M|46.88,45.22|Z|2395; Eversong Woods|N|From Lyssara Duskmourne.|RANK|2|
 C Fairbreeze Favors|QID|86739|M|46.52,45.83|Z|2395; Eversong Woods|N|Help out the citizenry. Use the [color=33fff9] Extra Action Button [/color] to scare Hawkstriders|S|EAB|
 C Displaced Denizens|QID|86740|M|47.17,46.22|Z|2395; Eversong Woods|H|S|N|Basically click glowing things.|
-C Assist Citizens|QID|86739|QO|4<1|M|45.52,45.91|Z|2395; Eversong Woods|H|N|Bandage Injured Pet.|;these 3 steps may need rearranged as I added them to guide after quest was done -- since I had a hard time finding them.
+C Assist Citizens|QID|86739|QO|4<1|M|46.53,45.87|Z|2395; Eversong Woods|H|N|Bandage Injured Pet.|;these 3 steps may need rearranged as I added them to guide after quest was done -- since I had a hard time finding them.
 C Assist Citizens|QID|86739|QO|4<2|M|45.63, 45.47|Z|2395; Eversong Woods|H|N|Rescue cat on top of statue's outstreached hand.|
 C Assist Citizens|QID|86739|QO|4<3|M|44.74, 45.00|Z|2395; Eversong Woods|H|N|Pick up all the books.|
 C Sharpmaw|QID|86738|QO|1|M|45.74,47.77|Z|2395; Eversong Woods|N|Approach Sharpmaw.|NC|
