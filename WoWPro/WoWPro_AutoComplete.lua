@@ -396,7 +396,8 @@ function WoWPro:AutoCompleteSetHearth(event, loc, noUpdate)
         return
     end
 
-    WoWProCharDB.hearth = loc
+    WoWProDB.char = WoWProDB.char or {}
+    WoWProDB.char.hearth = loc
     WoWPro:dbp("AutoCompleteSetHearth: hearth bound to [%s] globally via event [%s]", loc, tostring(event))
     if not WoWPro.rows or not WoWPro.action or not WoWPro.step or not WoWProDB or not WoWProDB.char or not WoWProDB.char.currentguide then
         return

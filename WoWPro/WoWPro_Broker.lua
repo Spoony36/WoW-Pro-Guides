@@ -2090,8 +2090,8 @@ function WoWPro.UpdateGuideReal(From)
     if not module or not module:IsEnabled() then return end
 
     -- If we already know the current hearth bind, try to auto-complete any matching h step before selecting the active step --
-    if WoWProCharDB.hearth then
-        WoWPro:AutoCompleteSetHearth(nil, WoWProCharDB.hearth, true)
+    if WoWProDB.char and WoWProDB.char.hearth then
+        WoWPro:AutoCompleteSetHearth(nil, WoWProDB.char.hearth, true)
     end
 
     -- Finding the active step in the guide --
@@ -2846,7 +2846,7 @@ function WoWPro.NextStep(guideIndex, rowIndex)
             end
 
             -- Auto-complete "h" steps if the hearth is already set to that location
-            if stepAction == "h" and WoWProCharDB.hearth and step == WoWProCharDB.hearth then
+            if stepAction == "h" and WoWProDB.char and WoWProDB.char.hearth and step == WoWProDB.char.hearth then
                 WoWPro.CompleteStep(guideIndex, "AutoCompleteSetHearth", true)
                 skip = true
                 break

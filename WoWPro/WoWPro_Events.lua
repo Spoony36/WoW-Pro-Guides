@@ -238,7 +238,7 @@ WoWPro.RegisterEventHandler("ADDON_ACTION_FORBIDDEN", function(event, ...)
 WoWPro.RegisterEventHandler("ADDON_ACTION_BLOCKED", WoWPro.ADDON_ACTION_FORBIDDEN, true)
 
 function WoWPro:InitializeHearthBind()
-    local loc = WoWProCharDB and WoWProCharDB.hearth
+    local loc = WoWProDB.char and WoWProDB.char.hearth
     if not loc or loc == "" or loc == "none" then
         if _G.GetBindLocation then
             loc = _G.GetBindLocation()
@@ -247,8 +247,8 @@ function WoWPro:InitializeHearthBind()
     if not loc or loc == "" or loc == "none" or (_G.issecretvalue and _G.issecretvalue(loc)) then
         return
     end
-    WoWProCharDB = WoWProCharDB or {}
-    WoWProCharDB.hearth = loc
+    WoWProDB.char = WoWProDB.char or {}
+    WoWProDB.char.hearth = loc
     WoWPro:AutoCompleteSetHearth(nil, loc, true)
 end
 
