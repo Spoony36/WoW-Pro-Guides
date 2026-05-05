@@ -146,7 +146,7 @@ A What We Do Best|QID|87457|PRE|87455|M|33.40,89.25|Z|2393; Silvermoon City|N|Fr
 C Souvenirs Scattered|QID|87456|M|33.16,89.23|Z|2393; Silvermoon City|QO|2|NC|N|Collect Satchel of Herbs.|
 C Souvenirs Scattered|QID|87456|M|33.47,89.48|Z|2393; Silvermoon City|QO|3|NC|N|Collect Nondescript Bottle of Water.|
 C Souvenirs Scattered|QID|87456|M|33.62,90.11|Z|2393; Silvermoon City|QO|1|NC|N|Collect Art and Architecture of Silvermoon: Vol. 3.|
-C What We Do Best|QID|87457|M|33.53,90.15|Z|2393; Silvermoon City|QO|1|N|Collect Antique Necklace, from the spider at the top of the ramp.|
+C What We Do Best|QID|87457|M|33.53,90.15|Z|2393; Silvermoon City|QO|1|N|Collect Antique Necklace from the spider at the top of the ramp.|
 T Souvenirs Scattered|QID|87456|M|33.33,90.27|Z|2393; Silvermoon City|N|To Gidwin Goldbraids.|
 T What We Do Best|QID|87457|M|33.33,90.27|Z|2393; Silvermoon City|N|To Gidwin Goldbraids.|
 A Debts Paid|QID|87458|PRE|87456&87457|M|33.33,90.27|Z|2393; Silvermoon City|N|From Gidwin Goldbraids.|
@@ -407,9 +407,9 @@ T A Fish!|QID|91271|M|48.75,76.71|Z|2395; Eversong Woods|N|To Valdekar Solaar.|
 A Pesky Pests|QID|91090|PRE|91271|M|48.75,76.71|Z|2395; Eversong Woods|NC|N|From Kaliel Solaar.|RANK|2|
 A Secret Ingredients|QID|91328|PRE|91271|M|48.75,76.71|Z|2395; Eversong Woods|N|From Valdekar Solaar.|RANK|2|
 C Secret Ingredients|QID|91328|M|48.75,76.71|Z|2395; Eversong Woods|N|Collect the berries from the bushes.|S|H|
-C Pesky Pests|QID|91090|QO|1|M|48.75,76.71|Z|2395; Eversong Woods|NC|N|Scare off the butterflys.|S|
+C Pesky Pests|QID|91090|QO|1|M|48.75,76.71|Z|2395; Eversong Woods|NC|N|Jump on a flying mount and fly through the butterflies to scare them off.|S|
 C Pesky Pests|QID|91090|QO|2|M|48.75,76.71|Z|2395; Eversong Woods|NC|N|Kill the grubs.|
-C Pesky Pests|QID|91090|QO|1|M|48.75,76.71|Z|2395; Eversong Woods|NC|N|Scare off the butterflys.|US|
+C Pesky Pests|QID|91090|QO|1|M|48.75,76.71|Z|2395; Eversong Woods|NC|N|Jump on a flying mount and fly through the butterflies to scare them off.|US|
 C Secret Ingredients|QID|91328|M|48.75,76.71|Z|2395; Eversong Woods|N|Collect the berries from the bushes.|US|H|
 T Secret Ingredients|QID|91328|M|48.75,76.71|Z|2395; Eversong Woods|N|To Valdekar Solaar.|
 T Pesky Pests|QID|91090|M|48.75,76.71|Z|2395; Eversong Woods|NC|N|To Kaliel Solaar.|
