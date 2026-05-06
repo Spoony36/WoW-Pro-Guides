@@ -179,11 +179,12 @@ T Taming the Beast |QID|6085|M|45.81,53.04|C|Hunter|R|Dwarf|N|To Grif Wildheart|
 A Training the Beast|QID|6086|PRE|6085|M|45.81,53.04|C|Hunter|R|Dwarf|N|From Grif Wildheart|
 T Training the Beast|QID|6086|C|Hunter|R|Dwarf|M|70.6,85.4|Z|Ironforge|N|To Belia Thundergranite, in Ironforge|
 ; -- Mage
-A Speak with Bink|QID|1879|C|Mage|R|Gnome|
-T Speak with Bink|QID|1879|C|Mage|R|Gnome|N|This turn-in is at your Ironforge trainer.|
-A Mage-tastic Gizmonitor|QID|1880|PRE|1879|C|Mage|R|Gnome|
-C Mage-tastic Gizmonitor|QID|1880|C|Mage|R|Gnome|M|27.7,36.5|N|The Gizmonitor is in a toolbox at the waypoint.|
-T Mage-tastic Gizmonitor|QID|1880|C|Mage|R|Gnome|
+L You need to go grind till level 10. Sorry.|LVL|10|C|Mage|R|Gnome|
+A Speak with Bink|QID|1879|M|47.50,52.05|Z|1426; Dun Morogh|N|From Magis Sparkmantle.|C|Mage|R|Gnome|LVL|10|
+T Speak with Bink|QID|1879|M|27.13,8.25|Z|1455; Ironforge|N|This turn-in to Bink.|C|Mage|R|Gnome|
+A Mage-tastic Gizmonitor|QID|1880|PRE|1879|M|27.13,8.25|Z|1455; Ironforge|N|From Bink.|C|Mage|R|Gnome|
+C Mage-tastic Gizmonitor|QID|1880|M|27.7,36.5|N|The Gizmonitor is in a toolbox at the waypoint.|C|Mage|R|Gnome|
+T Mage-tastic Gizmonitor|QID|1880|M|27.13,8.25|Z|1455; Ironforge|N|To Bink.|C|Mage|R|Gnome|
 ; -- Rogue
 A Road to Salvation|QID|2218|C|Rogue|R|Dwarf,Gnome|
 T Road to Salvation|QID|2218|C|Rogue|R|Dwarf,Gnome|M|51.90,14.89|Z|Ironforge|N|This turn-in is at your Ironforge trainer.|
@@ -282,10 +283,11 @@ A Manhunt|QID|147|PRE|123|M|42.11,65.94|N|From Marshall Dughan.|Z|Elwynn Forest|
 T Wanted:  "Hogger"|QID|176|M|42.11,65.94|N|To Marshall Dughan.|Z|Elwynn Forest|
 
 N City Facilities|QID|291|ACTIVE|291|S|N|Use this time to visit Auction House, Bank and to sell and restock. Now is a good time to increase bagspace!|
+H Thunderbrew Distillery|ACTIVE|291|N|Make your way back to IF or hearth to thunderbrew|
 T The Reports|QID|291|M|44.57,49.50;39.59,57.48|CS|Z|Ironforge|N|To Senator Barin Redstone, in The High Seat|
 f Ironforge|QID|311|M|55.7,48.0|N|Discover Ironforge Flightpoint with Gryth Thurden|R|-Gnome,-Dwarf|Z|Ironforge|
 
-H Thunderbrew Distillery|C|Warlock|
+
 
 A Muren Stormpike|QID|1679|C|Warrior|R|Dwarf,Gnome|M|47.36,52.65|Z|Dun Morogh|N|From Granis Swiftaxe.|
 T Muren Stormpike|QID|1679|C|Warrior|R|Gnome,Dwarf|M|70.77,90.28|Z|Ironforge|N|To Muren Stormpike near the Warrior/Hunter trainers in Ironforge.|

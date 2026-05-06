@@ -9,8 +9,8 @@ WoWPro:GuideLevels(guide, 10, 19)
 WoWPro:GuideNextGuide(guide, 'CLASSIC_BC_19_25_Alliance')
 WoWPro:GuideSteps(guide, function () return [[
 
-R South Gate Pass|QID|414|ACTIVE|414|M|86.3,51.3|Z|Dun Morogh|N|Head to the South Gate Pass tunnel|
-R Valley of Kings|QID|414|ACTIVE|414|M|21.55,66.25|Z|Loch Modan|N|Continue through the tunnel onto Loch Modan|
+R South Gate Pass|ACTIVE|414|M|86.3,51.3|Z|Dun Morogh|N|Head to the South Gate Pass tunnel|
+R Valley of Kings|ACTIVE|414|M|21.55,66.25|Z|Loch Modan|N|Continue through the tunnel onto Loch Modan|
 A The Trogg Threat|QID|267|M|23.24,73.67|Z|Loch Modan|N|From Captain Ruglefuss, inside the Bunker.|
 A In Defense of the King's Lands|QID|224|M|22.07,73.13|Z|Loch Modan|N|From Mountaineer Cobbleflint, outside, along the path.|
 C The Trogg Threat|QID|267|Z|Loch Modan|N|Loot the troggs until you get the items for this quest.|S|
@@ -20,6 +20,7 @@ T In Defense of the King's Lands|QID|224|M|22.07,73.13|Z|Loch Modan|N|To Mountai
 T The Trogg Threat|QID|267|M|23.24,73.67|Z|Loch Modan|N|To Captain Ruglefuss.|
 
 R Thelsamar|AVAILABLE|1338|M|32.96,49.44|Z|Loch Modan|N|Follow the road north to Thelsamar.|
+T Stout to Kadrell|QID|414|M|34.8,47.1|Z|Loch Modan|N|Mountaineer Kadrell patrols all throughout Thelsamar.|
 A Rat Catching|QID|416|M|34.8,47.1|Z|Loch Modan|N|Mountaineer Kadrell patrols all throughout Thelsamar.|
 A Mountaineer Stormpike's Task|QID|1339|M|34.8,47.1|Z|Loch Modan|N|From Mountaineer Kadrell patrols all throughout Thelsamar.|
 A Thelsamar Blood Sausages|QID|418|M|34.8,49.3|Z|Loch Modan|N|From Vidra Hearthstove inside the inn.|
@@ -39,38 +40,38 @@ T Filthy Paws|QID|307|M|24.77,18.39|Z|Loch Modan|N|To Mountaineer Stormpike.|
 C Thelsamar Blood Sausages|QID|418|M|32.28,31.08|Z|Loch Modan|CN|QO|1;2;3|N|Finish this quest now.|US|
 T Rat Catching|QID|416|M|34.8,47.1|Z|Loch Modan|N|To Mountaineer Kadrell.|
 T Thelsamar Blood Sausages|QID|418|M|34.8,49.3|Z|Loch Modan|N|To Vidra Hearthstove inside Stoutlager Inn.|
-F Ironforge|AVAILABLE|3681|M|33.94,50.95|Z|Loch Modan|C|Paladin|R|Human|
-A Tome of Divinity|QID|3681|M|23.11,6.15|Z|Ironforge|N|From Brandur Ironhammer in the Mystic Ward.|LEAD|3682|C|Paladin|R|Human|
-F Stormwind|ACTIVE|3681|M|55.54,47.75|Z|Ironforge|TZ|Stormwind City|N|Fly to Stormwind.|C|Paladin|
-F Stormwind|ACTIVE|6261|M|33.94,50.95|Z|Loch Modan|TZ|Stormwind City|N|Fly to Stormwind from Thelsamar.|C|-Paladin|
+
+F Ironforge|AVAILABLE|2999|M|33.94,50.95|Z|Loch Modan|N|Take the flightpath to IronForge.|C|Paladin|R|Human,Dwarf|
+A Tome of Divinity|QID|2999|M|23.11,6.15|Z|Ironforge|N|From Brandur Ironhammer in the Mystic Ward.|C|Paladin|R|Human,Dwarf|
+T Tome of Divinity|QID|2999|M|27.52,12.05|Z|Ironforge|N|To Tiza Battleforge upstairs in the Mystic Ward.|C|Paladin|R|Human,Dwarf|
+A The Tome of Divinity|QID|1646|PRE|2999|M|PLAYER|Z|Ironforge|U|6916|N|From item given you by Tiza Battleforge or randomly dropped.|C|Paladin|R|Human,Dwarf|
+T The Tome of Divinity|QID|1646|M|27.52,12.05|Z|Ironforge|N|To Tiza Battleforge upstairs in the Mystic Ward.|C|Paladin|R|Human,Dwarf|
+A The Tome of Divinity|QID|1647|PRE|1646|M|27.52,12.05|Z|Ironforge|N|From Tiza Battleforge upstairs in the Mystic Ward.|C|Paladin|R|Human,Dwarf|
+T The Tome of Divinity|QID|1647|M|27.52,12.05|Z|Ironforge|N|To John Turner in the Outside ring. He walks in circles.|C|Paladin|R|Human,Dwarf|
+A The Tome of Divinity|QID|1648|PRE|1647|M|PLAYER|Z|Ironforge|N|From John Turner.|C|Paladin|R|Human,Dwarf|
+C The Tome of Divinity|QID|1648|L|2589 10|N|Acquire 10 linen cloth if you don't have it.|C|Paladin|R|Human,Dwarf|
+T The Tome of Divinity|QID|1648|M|PLAYER|Z|Ironforge|N|To John Turner in the Outside ring. He walks in circles.|C|Paladin|R|Human,Dwarf|
+A The Tome of Divinity|QID|1778|PRE|1648|M|PLAYER|Z|Ironforge|N|From John Turner.|C|Paladin|R|Human,Dwarf|
+T The Tome of Divinity|QID|1778|M|27.52,12.05|Z|Ironforge|N|To Tiza Battleforge upstairs in the Mystic Ward.|C|Paladin|R|Human,Dwarf|
+A The Tome of Divinity|QID|1779|PRE|1778|M|27.52,12.05|Z|Ironforge|N|From Tiza Battleforge upstairs in the Mystic Ward.|C|Paladin|R|Human,Dwarf|
+T The Tome of Divinity|QID|1779|M|23.43,8.56|Z|Ironforge|N|To Muiredon Battleforge, upstairs in the Mystic Ward.|C|Paladin|R|Human,Dwarf|
+A The Tome of Divinity|QID|1783|PRE|1779|M|23.43,8.56|Z|Ironforge|N|From Muiredon Battleforge, upstairs in the Mystic Ward.|C|Paladin|R|Human,Dwarf|
+
+F Stormwind|ACTIVE|1338|M|55.54,47.75|Z|Ironforge|TZ|Stormwind City|N|Fly to Stormwind.|C|Paladin|
+F Stormwind|ACTIVE|1338|M|33.94,50.95|Z|Loch Modan|TZ|Stormwind City|N|Fly to Stormwind from Thelsamar.|C|-Paladin|
 
 T Dungar Longdrink|QID|6261|M|66.28,62.09|Z|Stormwind City|N|To Dungar Longdrink.|
 A Return to Lewis|QID|6285|PRE|6261|M|66.28,62.09|Z|Stormwind City|N|From Dungar Longdrink.|
 A Humble Beginnings|QID|399|Z|Stormwind City|M|49.21, 30.27|N|From Baros Alexston, in Cathedral Square.|
 
-T Tome of Divinity|QID|3681|M|39.80,29.78|Z|Stormwind City|N|To Duthorian Rall, inside Cathedral of Light.|C|Paladin|R|Human|
-A The Tome of Divinity|QID|1642|M|39.80,29.78|Z|Stormwind City|U|6775|N|From item given you by Duthorian Rall or randomly dropped.|C|Paladin|R|Human|PRE|1641^3681|
-T The Tome of Divinity|QID|1642|M|39.80,29.78|Z|Stormwind City|N|To Duthorian Rall.|C|Paladin|R|Human|
-A The Tome of Divinity|QID|1643|M|39.80,29.78|Z|Stormwind City|N|From Duthorian Rall.|PRE|1642|C|Paladin|R|Human|
-T The Tome of Divinity|QID|1643|M|57.08,61.73|Z|Stormwind City|N|To Stephanie Turner in the Trade District.|C|Paladin|R|Human|
-A The Tome of Divinity|QID|1644|M|57.08,61.73|Z|Stormwind City|N|From Stephanie Turner.|PRE|1643|C|Paladin|R|Human|
-C The Tome of Divinity|QID|1644|L|2589 10|N|Acquire 10 linen cloth if you don't have it.|C|Paladin|R|Human|
-T The Tome of Divinity|QID|1644|M|57.08,61.73|Z|Stormwind City|N|To Stephanie Turner.|C|Paladin|R|Human|
-A The Tome of Divinity|QID|1780|M|57.08,61.73|Z|Stormwind City|N|From Stephanie Turner.|PRE|1644|C|Paladin|R|Human|
-T The Tome of Divinity|QID|1780|M|39.80,29.78|Z|Stormwind City|N|To Duthorian Rall.|C|Paladin|R|Human|
-A The Tome of Divinity|QID|1781|M|39.80,29.78|Z|Stormwind City|N|From Duthorian Rall.|PRE|1780|C|Paladin|R|Human|
-T The Tome of Divinity|QID|1781|M|38.58,26.56|Z|Stormwind City|N|To Gazin Tenorm, up at the altar.|C|Paladin|R|Human|
-A The Tome of Divinity|QID|1786|M|38.58,26.56|Z|Stormwind City|N|From Gazin Tenorm.|PRE|1781|C|Paladin|R|Human|
+
+
 
 T Stormpike's Order|QID|1338|M|58.10,16.57|Z|Stormwind City|N|To Furen Longbeard, in the Dwarven District.|
 A Bounty on Murlocs|QID|46|M|73.97,72.18|Z|Elwynn Forest|N|From Guard Thomas at the east Elwynn bridge.|PRE|39|
 
 R Stone Cairn Lake|ACTIVE|46|M|75.95,59.58|Z|Elwynn Forest|N|Run north to the island in the middle of Stone Cairn Lake.|
 R Heroes' Vigil|ACTIVE|1786|M|74.45,56.74|Z|Elwynn Forest|N|Head to hills on the west side of the island in the middle of Stone Cairn Lake.|C|Paladin|
-C The Tome of Divinity|QID|1786|M|72.59,51.41|U|6866|NC|T|Henze Faulk|Z|Elwynn Forest|N|Target Henze, who is on a mound of dirt, and use the holy symbol on him.|C|Paladin|R|Human|
-T The Tome of Divinity|QID|1786|M|72.59,51.41|Z|Elwynn Forest|N|To Henze Faulk.|C|Paladin|R|Human|
-A The Tome of Divinity|QID|1787|M|72.59,51.41|Z|Elwynn Forest|N|From Henze Faulk.|PRE|1786|C|Paladin|R|Human|
-C The Tome of Divinity|QID|1787|M|74.03,51.84|Z|Elwynn Forest|N|Kill the wizards on the isle with you. The notes should drop pretty quickly.|C|Paladin|R|Human|
 R Stone Cairn Lake|ACTIVE|46|M|75.95,59.58|Z|Elwynn Forest|N|Return to the southern shoreline of Stone Cairn Lake.|C|Paladin|R|Human|
 
 C Bounty on Murlocs|QID|46|L|780 8|N|Kill murlocs until you collect the torn fins needed.|
@@ -86,19 +87,15 @@ A Assessing the Threat|QID|246|PRE|244|M|30.74,60.00|Z|Redridge Mountains|N|From
 f Lakeshire|QID|65|M|30.60,59.40|Z|Redridge Mountains|N|Get the flight path at Ariena Stormfeather.|
 F Stormwind|ACTIVE|147^1787|M|30.60,59.40|Z|Redridge Mountains|TZ|Stormwind City|N|Back to Stormwind to turn in a couple of quests, then on to Westfall.|
 
-T The Tome of Divinity|QID|1787|C|Paladin|R|Human|M|38.58,26.56|Z|Stormwind City|N|To Gazin Tenorm, back in Stormwind.|
-A The Tome of Divinity|QID|1788|C|Paladin|R|Human|M|38.58,26.56|Z|Stormwind City|N|To Gazin Tenorm.|PRE|1787|
-T The Tome of Divinity|QID|1788|C|Paladin|R|Human|M|39.80,29.78|Z|Stormwind City|N|To Duthorian Rall.|
 R Elwynn Forest|ACTIVE|147|M|32.03,49.18|Z|Elwynn Forest|N|Make your way to the front gate.|
 T Manhunt|QID|147|M|42.1,65.9|Z|Elwynn Forest|N|To Marshall Dughan in Goldshire.|
 
-R Sentinel Hill|ACTIVE|6285|N|If your hearthstone isn't available or set there, you can always fly.|
 
-A The Forgotten Heirloom|QID|64|M|56.04,31.24|Z|Westfall|N|From Farmer Furlbrow.|
+A The Forgotten Heirloom|QID|64|M|60.00,19.36|Z|Westfall|N|From Farmer Furlbrow.|
 A Westfall Stew|QID|36|M|59.92,19.41|Z|Westfall|N|From Verna Furlbrow.|
 A Poor Old Blanchy|QID|151|M|59.92,19.41|Z|Westfall|N|From Verna Furlbrow.|
 C Poor Old Blanchy|ACTIVE|151|L|1528 8|Z|Westfall|N|From now on, loot any Sacks of Oats from the ground|S|
-R Saldean's Farm|AVAILABLE|9|ACTIVE|36|Z|Westfall|N|Run to Saldean's Farm.|
+R Saldean's Farm|AVAILABLE|9|ACTIVE|36|M|56.04,31.23|Z|Westfall|N|Run to Saldean's Farm.|
 A The Killing Fields|QID|9|M|56.04,31.23|Z|Westfall|N|From Farmer Saldean. Note, he is also a vendor.|
 T Westfall Stew|QID|36|M|56.41,30.52|Z|Westfall|N|To Salma Saldean.|
 A Westfall Stew|QID|38|M|56.41,30.52|Z|Westfall|N|From Salma Saldean.|PRE|36|
@@ -111,6 +108,7 @@ C Hops|AVAILABLE|117|L|1274 5|N|Kill Harvest Watchers to collect 5 Hops. Save th
 
 ;--------------------new content---------------------------
 N Bag space|ACTIVE|22^38|Z|Westfall|N|There are a number of collection quests in this zone. You will need a minimum of 9 empty spaces to carry everything.|
+R Sentinel Hill|ACTIVE|109|M|55.50,47.89|Z|1436; Westfall|N|If your hearthstone isn't available or set there, you can always fly.|
 A Red Leather Bandanas|QID|153|M|53.98,52.99|Z|Westfall|N|From Scout Galiaan.|
 C Red Leather Bandanas|QID|153|M|44.00,25.00|QO|1<8|Z|Westfall|N|All Defias mobs drop them. There are multiple kill quests and plenty of opportunities to collect these while doing them.|S!US|
 T Report to Gryan Stoutmantle|QID|109|M|56.33,47.52|Z|Westfall|N|To Gryan Stoutmantle.|
