@@ -396,12 +396,26 @@ function WoWPro:AutoCompleteSetHearth(event, loc, noUpdate)
         return
     end
 
-    WoWProCharDB.Guide.hearth = loc
+    WoWProDB.char = WoWProDB.char or {}
+    WoWProDB.char.hearth = loc
+    WoWPro:dbp("AutoCompleteSetHearth: hearth bound to [%s] globally via event [%s]", loc, tostring(event))
+    if not WoWPro.rows or not WoWPro.action or not WoWPro.step or not WoWProDB or not WoWProDB.char or not WoWProDB.char.currentguide then
+        return
+    end
+    local currentGuide = WoWProDB.char.currentguide
+    local guideData = WoWProCharDB.Guide and WoWProCharDB.Guide[currentGuide]
+    if not guideData then
+        return
+    end
     for i = 1,15 do
-        local index = WoWPro.rows[i].index
-        if WoWPro.action[index] == "h" and WoWPro.step[index] == loc
-        and not WoWProCharDB.Guide[WoWProDB.char.currentguide].completion[index] then
-            WoWPro.CompleteStep(index, "AutoCompleteSetHearth", noUpdate)
+        local row = WoWPro.rows[i]
+        if row and row.index then
+            local index = row.index
+            if WoWPro.action[index] == "h" and WoWPro.step[index] == loc
+            and not guideData.completion[index] then
+                WoWPro:dbp("AutoCompleteSetHearth: completing h-step index %d step [%s] because hearth matches", index, loc)
+                WoWPro.CompleteStep(index, "AutoCompleteSetHearth", noUpdate)
+            end
         end
     end
 end

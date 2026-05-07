@@ -2089,9 +2089,9 @@ function WoWPro.UpdateGuideReal(From)
     local module = WoWPro:GetModule(WoWPro.Guides[GID].guidetype)
     if not module or not module:IsEnabled() then return end
 
-    -- Reconcile saved hearth location before selecting active step --
-    if WoWProCharDB.Guide[GID] and WoWProCharDB.Guide[GID].hearth then
-        WoWPro:AutoCompleteSetHearth(nil, WoWProCharDB.Guide[GID].hearth, true)
+    -- If we already know the current hearth bind, try to auto-complete any matching h step before selecting the active step --
+    if WoWProDB.char and WoWProDB.char.hearth then
+        WoWPro:AutoCompleteSetHearth(nil, WoWProDB.char.hearth, true)
     end
 
     -- Finding the active step in the guide --
@@ -2845,11 +2845,20 @@ function WoWPro.NextStep(guideIndex, rowIndex)
                 break
             end
 
+            -- Auto-complete "h" steps if the hearth is already set to that location
+            if stepAction == "h" and WoWProDB.char and WoWProDB.char.hearth and step == WoWProDB.char.hearth then
+                WoWPro.CompleteStep(guideIndex, "AutoCompleteSetHearth", true)
+                skip = true
+                break
+            end
+
             -- Complete Travel steps if we are in the right zone already
             if stepAction == "F" or stepAction == "H" or stepAction == "b" or stepAction == "P" or stepAction == "R" then
                 local zonetext, subzonetext = _G.GetZoneText(), _G.GetSubZoneText():trim()
                 if (step == zonetext or step == subzonetext) and ( rowIndex == 1) and not guide.completion[guideIndex] then
                     WoWPro.CompleteStep(guideIndex,"AutoCompleteZoneBroker")
+                    WoWPro:dbp("Step %s [%s/%s] skipped because current zone matches step location",stepAction,step,tostring(QID))
+                    WoWPro.why[guideIndex] = "NextStep(): Skipping travel step because current zone matches current location."
                     skip = true
                     break
                 end
