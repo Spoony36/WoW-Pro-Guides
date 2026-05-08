@@ -16,7 +16,7 @@ WoWPro.CombatLock = false
 WoWPro.DevMode = false
 WoWPro.Guides = {}
 WoWPro.InitLockdown = false  -- Set when the addon is loaded
-WoWPro.Log = {}
+WoWPro.Log = {} -- Temporary local log
 WoWPro.GuideLoaded = false
 
 -- Define list of objects to be exported to Guide Addons
@@ -49,12 +49,14 @@ function WoWPro:Add2Log(level, msg)
         WoWPro.Serial = 1
     end
     if WoWProDB and WoWProDB.global and WoWProDB.global.Log then
+        -- Now that the global log has been established, copy over the local log and turn it off.
         if WoWPro.Log then
             WoWProDB.global.Log = WoWPro.Log
             WoWPro.Log = nil
         end
         WoWProDB.global.Log[WoWPro.Serial] = msg
     else
+        -- no global log yet
         WoWPro.Log[WoWPro.Serial] = msg
     end
 end
