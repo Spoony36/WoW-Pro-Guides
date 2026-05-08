@@ -408,7 +408,7 @@ function WoWPro:AutoCompleteSetHearth(...)
 end
 
 -- Auto-Complete: Zone based --
-function WoWPro.AutoCompleteZone()
+function WoWPro.AutoCompleteZone(_event)
     local currentindex = WoWPro.rows[1+WoWPro:GetActiveStickyCount()].index
     local action = WoWPro.action[currentindex] or "?"
     local step = WoWPro.step[currentindex] or "?"

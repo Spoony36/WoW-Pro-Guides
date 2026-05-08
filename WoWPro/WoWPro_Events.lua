@@ -5,12 +5,13 @@
 --  WoWPro_Events.lua   --
 --------------------------
 
--- Setting up event handler load time tables
-WoWPro.EventTable = {}
-WoWPro.InitLockdownEvents = {}
+    -- Setting up event handler load time tables
+    WoWPro.EventTable = {}
+    WoWPro.InitLockdownEvents = {}
 
 function WoWPro:OnEnableEvents()
     WoWPro:dbp("Registering Events: Core Addon")
+    WoWPro.FirstUpdatePending = true
     WoWPro:RegisterEvents(nil)
     WoWPro:RegisterBucketMessage("WoWPro_PuntedQLU", 0.333, WoWPro.PuntedQLU)
     -- EventFrame is created earlier in WoWPro:OnEnable()
@@ -97,12 +98,12 @@ function WoWPro.Ready(who)
         WoWPro:dbp("%s not Ready. Current guide invalid!",(who or "Someone"))
         return false
     end
-    if WoWPro.GuideLoaded ~= true then
+    if not WoWPro.GuideLoaded then
         WoWPro:dbp("%s not Ready. Guide %s is not loaded yet!",(who or "Someone"), tostring(WoWProDB.char.currentguide))
         return false
     end
-    if WoWPro.GuideUpdated ~= true then
-        WoWPro:dbp("%s not Ready. Guide %s is not updated once yet!",(who or "Someone"), tostring(WoWProDB.char.currentguide))
+    if WoWPro.FirstUpdatePending then
+        WoWPro:dbp("%s not Ready. First guide update for %s is still pending!",(who or "Someone"), tostring(WoWProDB.char.currentguide))
         return false
     end
     return true
@@ -237,10 +238,10 @@ WoWPro.RegisterEventHandler("ADDON_ACTION_FORBIDDEN", function(event, ...)
     end, true)
 WoWPro.RegisterEventHandler("ADDON_ACTION_BLOCKED", WoWPro.ADDON_ACTION_FORBIDDEN, true)
 
-WoWPro.RegisterEventHandler("SAVED_VARIABLES_TOO_LARGE", function(event) return; end)
-WoWPro.RegisterEventHandler("ADDON_LOADED", function(event) return; end)
-WoWPro.RegisterEventHandler("PLAYER_LOGIN", function(event) return; end)
-WoWPro.RegisterEventHandler("VARIABLES_LOADED", function(event) return; end)
+WoWPro.RegisterEventHandler("SAVED_VARIABLES_TOO_LARGE", function(event) return; end, true)
+WoWPro.RegisterEventHandler("ADDON_LOADED", function(event) return; end, true)
+WoWPro.RegisterEventHandler("PLAYER_LOGIN", function(event) return; end, true)
+WoWPro.RegisterEventHandler("VARIABLES_LOADED", function(event) return; end, true)
 
 WoWPro.RegisterEventHandler("SPELLS_CHANGED", function(event)
     WoWPro:UpdateGuide(event)

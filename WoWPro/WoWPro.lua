@@ -17,7 +17,7 @@ WoWPro.DevMode = false
 WoWPro.Guides = {}
 WoWPro.InitLockdown = false  -- Set when the addon is loaded
 WoWPro.Log = {}
-WoWPro.GuideLoaded = nil
+WoWPro.GuideLoaded = false
 
 -- Define list of objects to be exported to Guide Addons
 WoWPro.mixins = {}
@@ -439,8 +439,8 @@ function WoWPro:OnInitialize()
     WoWPro.DebugLevel = WoWProCharDB.DebugLevel
     WoWPro.DebugClasses = (WoWPro.DebugLevel > 0) and WoWProCharDB.DebugClasses
     WoWPro.GossipText = nil
-    WoWPro.GuideLoaded = nil
-    WoWPro.GuideUpdated = nil
+    WoWPro.GuideLoaded = false
+    WoWPro.GuideUpdated = false
     -- Selector is Deprecated
     WoWProDB.profile.Selector = nil
     if type(WoWProDB.profile.checksoundfile) == "string" then
