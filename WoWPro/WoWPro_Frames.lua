@@ -541,6 +541,7 @@ function WoWPro.RowSizeSet()
     local pad = WoWProDB.profile.pad
     local biggeststep = 0
     local totalh, maxh = 0, WoWPro.GuideFrame:GetHeight()
+    local guideWindowCropped = false
 
     -- Get current expansion anchor (default to TOPLEFT if not set)
     local expansionAnchor = WoWProDB.profile.expansionAnchor or "TOPLEFT"
@@ -679,12 +680,12 @@ function WoWPro.RowSizeSet()
             else
                 for j=i,15 do
                     WoWPro.rows[j]:Hide()
-                        if not _G.InCombatLockdown() then
-                            if WoWPro.rows[j].itembutton then WoWPro.rows[j].itembutton:Hide() end
-                            if WoWPro.rows[j].targetbutton then WoWPro.rows[j].targetbutton:Hide() end
-                            if WoWPro.rows[j].jumpbutton then WoWPro.rows[j].jumpbutton:Hide() end
-                            if WoWPro.rows[j].eabutton then WoWPro.rows[j].eabutton:Hide() end
-                        end
+                    if not _G.InCombatLockdown() then
+                        if WoWPro.rows[j].itembutton then WoWPro.rows[j].itembutton:Hide() end
+                        if WoWPro.rows[j].targetbutton then WoWPro.rows[j].targetbutton:Hide() end
+                        if WoWPro.rows[j].jumpbutton then WoWPro.rows[j].jumpbutton:Hide() end
+                        if WoWPro.rows[j].eabutton then WoWPro.rows[j].eabutton:Hide() end
+                    end
                 end
                 break
             end
@@ -692,14 +693,15 @@ function WoWPro.RowSizeSet()
         else
             totalh = totalh + newh
             if totalh > maxh then
+                guideWindowCropped = true
                 for j=i,15 do
                     WoWPro.rows[j]:Hide()
-                        if not _G.InCombatLockdown() then
-                            if WoWPro.rows[j].itembutton then WoWPro.rows[j].itembutton:Hide() end
-                            if WoWPro.rows[j].targetbutton then WoWPro.rows[j].targetbutton:Hide() end
-                            if WoWPro.rows[j].jumpbutton then WoWPro.rows[j].jumpbutton:Hide() end
-                            if WoWPro.rows[j].eabutton then WoWPro.rows[j].eabutton:Hide() end
-                        end
+                    if not _G.InCombatLockdown() then
+                        if WoWPro.rows[j].itembutton then WoWPro.rows[j].itembutton:Hide() end
+                        if WoWPro.rows[j].targetbutton then WoWPro.rows[j].targetbutton:Hide() end
+                        if WoWPro.rows[j].jumpbutton then WoWPro.rows[j].jumpbutton:Hide() end
+                        if WoWPro.rows[j].eabutton then WoWPro.rows[j].eabutton:Hide() end
+                    end
                 end
                 break
             else
@@ -783,12 +785,16 @@ function WoWPro.RowSizeSet()
             end
 
             -- Clamp calculated height to not exceed screen edge
+            if totalh > maxHeightScreen then
+                guideWindowCropped = true
+            end
             totalh = math.min(totalh, maxHeightScreen)
 
             -- Temporarily disable clamping to allow frame to grow upward for bottom-anchored frames
             local wasClampedToScreen = WoWPro.MainFrame:IsClampedToScreen()
             WoWPro.MainFrame:SetClampedToScreen(false)
             WoWPro.MainFrame:SetHeight(totalh)
+            WoWPro.PaddingSet()
             WoWPro.MainFrame:SetClampedToScreen(wasClampedToScreen)
 
             -- For bottom-anchored frames, re-establish the anchor after resize to ensure bottom doesn't drift
@@ -815,6 +821,17 @@ function WoWPro.RowSizeSet()
         elseif frameTop and frameTop > screenH and frameBottom then
             local newHeight = math.max(minHeight, screenH - frameBottom)
             WoWPro.MainFrame:SetHeight(newHeight)
+        end
+    end
+
+    if not _G.InCombatLockdown() then
+        if guideWindowCropped then
+            if not WoWPro.CroppedGuideWarning then
+                WoWPro:Print("|cffffff00WoWPro: Screen height limits guide visibility. Enable mouseover notes or reduce displayed rows.|r")
+                WoWPro.CroppedGuideWarning = true
+            end
+        else
+            WoWPro.CroppedGuideWarning = nil
         end
     end
 

@@ -555,6 +555,7 @@ function WoWPro:LoadGuide(guideID)
     end
     WoWPro.GuideLoaded = false
     WoWPro.GuideUpdated = false
+    WoWPro.EventQueue = {}
     WoWPro.current_strategy = nil
     WoWPro:SendMessage("WoWPro_LoadGuide")
 	if WoWPro.GroupSync then
@@ -2088,6 +2089,11 @@ function WoWPro.UpdateGuideReal(From)
     local module = WoWPro:GetModule(WoWPro.Guides[GID].guidetype)
     if not module or not module:IsEnabled() then return end
 
+    -- If we already know the current hearth bind, try to auto-complete any matching h step before selecting the active step --
+    if WoWProDB.char and WoWProDB.char.hearth then
+        WoWPro:AutoCompleteSetHearth(nil, WoWProDB.char.hearth, true)
+    end
+
     -- Finding the active step in the guide --
     WoWPro.ActiveStep = WoWPro.NextStepNotSticky(1)
     WoWPro:print("UpdateGuideReal(%d): ActiveStep=%s", WoWPro.ActiveStep, WoWPro.EmitSafeStep(WoWPro.ActiveStep))
@@ -2237,24 +2243,31 @@ function WoWPro.UpdateGuideReal(From)
             end
         end
 
-    -- If the guide is complete, loading the next guide --
-    if WoWProCharDB.Guide[GID].done and not WoWPro.Recorder and WoWPro.Leveling and not WoWPro.Leveling.Resetting then
-        if WoWProDB.profile.autoload then
-            WoWProDB.char.currentguide = WoWPro:NextGuide(GID)
-            WoWPro:Print("Switching to next guide: %s",tostring(WoWProDB.char.currentguide))
-            WoWPro:LoadGuide()
-            return
-        else
-            WoWPro.NextGuideDialog:Show()
+        -- If the guide is complete, loading the next guide --
+        if WoWProCharDB.Guide[GID].done and not WoWPro.Recorder and WoWPro.Leveling and not WoWPro.Leveling.Resetting then
+            if WoWProDB.profile.autoload then
+                WoWProDB.char.currentguide = WoWPro:NextGuide(GID)
+                WoWPro:Print("Switching to next guide: %s",tostring(WoWProDB.char.currentguide))
+                WoWPro:LoadGuide()
+                return
+            else
+                WoWPro.NextGuideDialog:Show()
+            end
         end
     end
     WoWPro:MapPoint()
-    WoWPro.GuideUpdated = true
     WoWPro:SendMessage("WoWPro_PostUpdateGuide")
     -- Update content and formatting --
     WoWPro.PaddingSet()
     WoWPro.RowSet()
-end
+    if not WoWPro.GuideUpdated then
+        WoWPro:dbp("[Broker]: First Guide Update completed.  Resuming normal processing.")
+        WoWPro.GuideUpdated = true
+        WoWPro.FirstUpdatePending = false
+        WoWPro:dbp("[Naughty Broker]: Invoke the ZONE_CHANGED_NEW_AREA event handler directly before Replay!")
+        WoWPro.ZONE_CHANGED_NEW_AREA("ZONE_CHANGED_NEW_AREA_GUIDE_UPDATE")
+        WoWPro.EventReplayStart()
+    end
 end
 
 
@@ -2833,11 +2846,20 @@ function WoWPro.NextStep(guideIndex, rowIndex)
                 break
             end
 
+            -- Auto-complete "h" steps if the hearth is already set to that location
+            if stepAction == "h" and WoWProDB.char and WoWProDB.char.hearth and step == WoWProDB.char.hearth then
+                WoWPro.CompleteStep(guideIndex, "AutoCompleteSetHearth", true)
+                skip = true
+                break
+            end
+
             -- Complete Travel steps if we are in the right zone already
             if stepAction == "F" or stepAction == "H" or stepAction == "b" or stepAction == "P" or stepAction == "R" then
                 local zonetext, subzonetext = _G.GetZoneText(), _G.GetSubZoneText():trim()
                 if (step == zonetext or step == subzonetext) and ( rowIndex == 1) and not guide.completion[guideIndex] then
                     WoWPro.CompleteStep(guideIndex,"AutoCompleteZoneBroker")
+                    WoWPro:dbp("Step %s [%s/%s] skipped because current zone matches step location",stepAction,step,tostring(QID))
+                    WoWPro.why[guideIndex] = "NextStep(): Skipping travel step because current zone matches current location."
                     skip = true
                     break
                 end

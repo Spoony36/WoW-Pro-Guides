@@ -16,7 +16,7 @@ WoWPro.CombatLock = false
 WoWPro.DevMode = false
 WoWPro.Guides = {}
 WoWPro.InitLockdown = false  -- Set when the addon is loaded
-WoWPro.Log = {}
+WoWPro.Log = {} -- Temporary local log
 WoWPro.GuideLoaded = false
 
 -- Define list of objects to be exported to Guide Addons
@@ -49,12 +49,14 @@ function WoWPro:Add2Log(level, msg)
         WoWPro.Serial = 1
     end
     if WoWProDB and WoWProDB.global and WoWProDB.global.Log then
+        -- Now that the global log has been established, copy over the local log and turn it off.
         if WoWPro.Log then
             WoWProDB.global.Log = WoWPro.Log
             WoWPro.Log = nil
         end
         WoWProDB.global.Log[WoWPro.Serial] = msg
     else
+        -- no global log yet
         WoWPro.Log[WoWPro.Serial] = msg
     end
 end
@@ -513,8 +515,6 @@ function WoWPro.MaybeCombatLockdown()
     return _G.InCombatLockdown() and (not WoWProDB.global.RecklessCombat)
 end
 
--- Setting up event handler
-WoWPro.EventTable = {}
 
 -- Called when the addon is enabled, and on log-in and /reload, after all addons have loaded. --
 function WoWPro:OnEnable()
@@ -551,9 +551,8 @@ function WoWPro:OnEnable()
         _G.SetBinding("CTRL-SHIFT-T", "CLICK WoWPro_FauxTargetButton:LeftButton")
     end
 
-    -- Event Setup --
-    WoWPro:dbp("Registering Events: Core Addon")
-    WoWPro:RegisterEvents(nil)
+    -- Event/Message/Module Setup --
+    WoWPro:OnEnableEvents()
     WoWPro:RegisterBucketEvent({"CHAT_MSG_LOOT", "BAG_UPDATE"}, 0.333, WoWPro.AutoCompleteLoot)
     if WoWPro.RETAIL then
         WoWPro:RegisterBucketEvent({"QUEST_LOG_CRITERIA_UPDATE"}, 0.250, WoWPro.AutoCompleteCriteria)
@@ -566,7 +565,6 @@ function WoWPro:OnEnable()
     WoWPro:RegisterBucketMessage("WoWPro_GuideSetup",0.25,WoWPro.SetupGuideReal)
     WoWPro:RegisterBucketMessage("WoWPro_UpdateGuide",0.333,WoWPro.UpdateGuideReal)
     WoWPro:RegisterBucketMessage("WoWPro_UpdateGuideSlow",0.666,WoWPro.UpdateGuideRealSlow)
-    WoWPro:RegisterBucketMessage("WoWPro_PuntedQLU",0.333,WoWPro.PuntedQLU)
     WoWPro:RegisterBucketMessage("WoWPro_GuideSelect",0.333,WoWPro.SelectGuideReal)
     if WoWPro.Recorder then
         WoWPro:RegisterBucketMessage("WoWPro_PostQuestLogUpdate",0.1,WoWPro.Recorder.PostQuestLogUpdate)
@@ -580,7 +578,6 @@ function WoWPro:OnEnable()
     WoWPro.LockdownCounter = 5  -- times until release and give up to wait for other addons
     WoWPro:dbp("Setting Timer OnEnable")
     WoWPro.EventFrame:SetScript("OnUpdate", WoWPro.LockdownHandler)
-    WoWPro.EventFrame:SetScript("OnEvent",WoWPro.EventHandler)
 
     WoWPro:dbp("Scan to purge PlayerGetTimerunningSeasonID")
     -- Purge guides that do not match the SeasonID
@@ -615,7 +612,6 @@ function WoWPro:OnEnable()
             WoWPro[guide.guidetype]:RegisterGuide(guide)
         end
     end
-
 
     -- Set up the Nickname -> Guide map.
     WoWPro.Nickname2Guide = {}
@@ -668,9 +664,10 @@ function WoWPro:OnDisable()
     end
 
     WoWPro:AbleFrames()                             -- Hides all frames
-    WoWPro.EventFrame:UnregisterAllEvents() -- Unregister all events
+    WoWPro:UnregisterAllEvents() -- Unregister all events
     WoWPro:UnregisterAllBuckets()
     WoWPro:RemoveMapPoint()                         -- Removes any active map points
+    WoWPro.EventQueue = {}
     WoWPro:Print("|cffff3333Disabled|r: Version %s", WoWPro.Version)
 end
 
@@ -755,56 +752,6 @@ function WoWPro:DevZone()
         f:Hide()
     end
 end
-
--- Event Registration Function --
-function WoWPro:RegisterEvents(eventtable)
-    --[[Purpose: Iterates through the supplied table of events, and registers each
-    event to the guide frame.
-    ]]--
-    if not eventtable then
-        eventtable = WoWPro.EventTable
-    end
-    for key,value in pairs(eventtable) do
-        if type(key) == "string" then
-            WoWPro.EventFrame:RegisterEvent(key)
-            WoWPro.EventTable[key]=true
-        end
-        if type(value) == "string" then
-            WoWPro.EventFrame:RegisterEvent(value)
-            WoWPro.EventTable[value]=true
-        end
-    end
-end
-
--- Event Un-Registration Function --
-function WoWPro:UnregisterEvents(eventtable)
-    --[[Purpose: Iterates through the supplied table of events, and removes each
-    event from the guide frame.
-    ]]--
-    if not eventtable then
-        WoWPro.UnregisterAllEvents()
-        return
-    end
-    for key,value in pairs(eventtable) do
-        if type(key) == "string" then
-            WoWPro.EventFrame:UnregisterEvent(key)
-            WoWPro.EventTable[value]=false
-        end
-        if type(value) == "string" then
-            WoWPro.EventFrame:UnregisterEvent(value)
-            WoWPro.EventTable[value]=false
-        end
-    end
-end
-
-function WoWPro.RegisterAllEvents()
-    WoWPro.EventFrame:RegisterAllEvents()
-end
-
-function WoWPro.UnregisterAllEvents()
-    WoWPro.EventFrame:UnregisterAllEvents()
-end
-
 
 -- https://github.com/Rainrider/KlaxxiKillOrder/issues/1
 -- New syntax for UnitGUID() in WoD
