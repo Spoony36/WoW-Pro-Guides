@@ -679,12 +679,12 @@ function WoWPro.RowSizeSet()
             else
                 for j=i,15 do
                     WoWPro.rows[j]:Hide()
-                        if not _G.InCombatLockdown() then
-                            if WoWPro.rows[j].itembutton then WoWPro.rows[j].itembutton:Hide() end
-                            if WoWPro.rows[j].targetbutton then WoWPro.rows[j].targetbutton:Hide() end
-                            if WoWPro.rows[j].jumpbutton then WoWPro.rows[j].jumpbutton:Hide() end
-                            if WoWPro.rows[j].eabutton then WoWPro.rows[j].eabutton:Hide() end
-                        end
+                    if not _G.InCombatLockdown() then
+                        if WoWPro.rows[j].itembutton then WoWPro.rows[j].itembutton:Hide() end
+                        if WoWPro.rows[j].targetbutton then WoWPro.rows[j].targetbutton:Hide() end
+                        if WoWPro.rows[j].jumpbutton then WoWPro.rows[j].jumpbutton:Hide() end
+                        if WoWPro.rows[j].eabutton then WoWPro.rows[j].eabutton:Hide() end
+                    end
                 end
                 break
             end
@@ -694,12 +694,12 @@ function WoWPro.RowSizeSet()
             if totalh > maxh then
                 for j=i,15 do
                     WoWPro.rows[j]:Hide()
-                        if not _G.InCombatLockdown() then
-                            if WoWPro.rows[j].itembutton then WoWPro.rows[j].itembutton:Hide() end
-                            if WoWPro.rows[j].targetbutton then WoWPro.rows[j].targetbutton:Hide() end
-                            if WoWPro.rows[j].jumpbutton then WoWPro.rows[j].jumpbutton:Hide() end
-                            if WoWPro.rows[j].eabutton then WoWPro.rows[j].eabutton:Hide() end
-                        end
+                    if not _G.InCombatLockdown() then
+                        if WoWPro.rows[j].itembutton then WoWPro.rows[j].itembutton:Hide() end
+                        if WoWPro.rows[j].targetbutton then WoWPro.rows[j].targetbutton:Hide() end
+                        if WoWPro.rows[j].jumpbutton then WoWPro.rows[j].jumpbutton:Hide() end
+                        if WoWPro.rows[j].eabutton then WoWPro.rows[j].eabutton:Hide() end
+                    end
                 end
                 break
             else

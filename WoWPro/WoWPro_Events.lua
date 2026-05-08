@@ -238,9 +238,27 @@ WoWPro.RegisterEventHandler("ADDON_ACTION_FORBIDDEN", function(event, ...)
     end, true)
 WoWPro.RegisterEventHandler("ADDON_ACTION_BLOCKED", WoWPro.ADDON_ACTION_FORBIDDEN, true)
 
+function WoWPro:InitializeHearthBind()
+    local loc = WoWProDB.char and WoWProDB.char.hearth
+    if not loc or loc == "" or loc == "none" then
+        if _G.GetBindLocation then
+            loc = _G.GetBindLocation()
+        end
+    end
+    if not loc or loc == "" or loc == "none" or (_G.issecretvalue and _G.issecretvalue(loc)) then
+        return
+    end
+    WoWProDB.char = WoWProDB.char or {}
+    WoWProDB.char.hearth = loc
+    WoWPro:AutoCompleteSetHearth(nil, loc, true)
+end
+
 WoWPro.RegisterEventHandler("SAVED_VARIABLES_TOO_LARGE", function(event) return; end, true)
 WoWPro.RegisterEventHandler("ADDON_LOADED", function(event) return; end, true)
-WoWPro.RegisterEventHandler("PLAYER_LOGIN", function(event) return; end, true)
+WoWPro.RegisterEventHandler("PLAYER_LOGIN", function(event)
+    WoWPro:InitializeHearthBind()
+    return
+end, true)
 WoWPro.RegisterEventHandler("VARIABLES_LOADED", function(event) return; end, true)
 
 WoWPro.RegisterEventHandler("SPELLS_CHANGED", function(event)
@@ -255,6 +273,7 @@ WoWPro.RegisterEventHandler("PLAYER_ENTERING_WORLD", function(event, ...)
     WoWPro.LockdownCounter = 5  -- times until release and give up to wait for other addons
     WoWPro.LockdownTimer = 1.5
     WoWPro.AutoHideFrame("|cff33ff33Battleground Exit Auto Show|r: "..event, "INSTANCE")
+    WoWPro:InitializeHearthBind()
     WoWPro:UpdateTradeSkills()
     end, true)
 
@@ -810,8 +829,13 @@ function WoWPro.PLAYER_CONTROL_LOST_PUNTED(event, ...)
     end
 end
 
-WoWPro.RegisterEventHandler("CHAT_MSG_SYSTEM", function(event, ...)
-    WoWPro:AutoCompleteSetHearth(...)
+WoWPro.RegisterEventHandler("HEARTHSTONE_BOUND", function(event, ...)
+    local loc = select(2, ...) or _G.GetBindLocation()
+    if not loc or (_G.issecretvalue and _G.issecretvalue(loc)) then
+        return
+    end
+    WoWPro:Print("Hearthstone bound to %s", loc)
+    WoWPro:AutoCompleteSetHearth(event, loc)
 end)
 
 if WoWPro.RETAIL then
