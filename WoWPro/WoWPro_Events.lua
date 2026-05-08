@@ -830,7 +830,14 @@ function WoWPro.PLAYER_CONTROL_LOST_PUNTED(event, ...)
 end
 
 WoWPro.RegisterEventHandler("HEARTHSTONE_BOUND", function(event, ...)
-    local loc = select(2, ...) or _G.GetBindLocation()
+    -- In all clients:
+    --                 {
+    --                     Name = "HearthstoneBound",
+    --                     Type = "Event",
+    --                     LiteralName = "HEARTHSTONE_BOUND",
+    --                     SynchronousEvent = true,
+    --             },
+    local loc = _G.GetBindLocation()
     if not loc or (_G.issecretvalue and _G.issecretvalue(loc)) then
         return
     end
