@@ -64,9 +64,6 @@ T Dungar Longdrink|QID|6261|M|66.28,62.09|Z|Stormwind City|N|To Dungar Longdrink
 A Return to Lewis|QID|6285|PRE|6261|M|66.28,62.09|Z|Stormwind City|N|From Dungar Longdrink.|
 A Humble Beginnings|QID|399|Z|Stormwind City|M|49.21, 30.27|N|From Baros Alexston, in Cathedral Square.|
 
-
-
-
 T Stormpike's Order|QID|1338|M|58.10,16.57|Z|Stormwind City|N|To Furen Longbeard, in the Dwarven District.|
 A Bounty on Murlocs|QID|46|M|73.97,72.18|Z|Elwynn Forest|N|From Guard Thomas at the east Elwynn bridge.|PRE|39|
 
@@ -89,7 +86,6 @@ F Stormwind|ACTIVE|147^1787|M|30.60,59.40|Z|Redridge Mountains|TZ|Stormwind City
 
 R Elwynn Forest|ACTIVE|147|M|32.03,49.18|Z|Elwynn Forest|N|Make your way to the front gate.|
 T Manhunt|QID|147|M|42.1,65.9|Z|Elwynn Forest|N|To Marshall Dughan in Goldshire.|
-
 
 A The Forgotten Heirloom|QID|64|M|60.00,19.36|Z|Westfall|N|From Farmer Furlbrow.|
 A Westfall Stew|QID|36|M|59.92,19.41|Z|Westfall|N|From Verna Furlbrow.|
