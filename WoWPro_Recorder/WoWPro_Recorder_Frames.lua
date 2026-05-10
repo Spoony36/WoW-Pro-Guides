@@ -1270,6 +1270,7 @@ function WoWPro.Recorder:CreateRecorderFrame()
                         if val == "" then val = nil end
                         WoWPro.note[WoWPro.Recorder.SelectedStep] = val
                         WoWPro:UpdateGuide();
+                        WoWPro.Recorder:SaveGuide()
                     end,
                 },
             },
