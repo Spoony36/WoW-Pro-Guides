@@ -1206,6 +1206,8 @@ function WoWPro.Recorder:CreateRecorderFrame()
                                 WoWPro.lootitem[WoWPro.Recorder.SelectedStep][tonumber(itemID)] = tonumber(qty) or 1
                             end
                         end
+                        WoWPro:UpdateGuide();
+                        WoWPro.Recorder:SaveGuide()
                     end,
                 },
                 level = {
