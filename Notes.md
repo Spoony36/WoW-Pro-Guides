@@ -9,8 +9,8 @@
 * MOP Neutral Leveling: Eastern Plaugelands
 * Retail Neutral Leveling: Azure Span, Thaldraszus, The Coalition of Flames, Eversong Woods, Harandar, Void Storm, War of Light and Shadow, TWW Recap
 * TBC Alliance Leveling: Dwarf/Gnome Intro, Human Intro, Night Elf Intro, Blooodmyst, Darkshore, EK 10-19, 19-60 Alliance, Blackrock Depths, Deadmines, Maraudon, Uldaman
-* TBC Horde Leveling: Yauren Intro, Silverpine, Barrens 14-22, Felwood 54-55, Blackfathom
-* Vanilla Horde Leveling: Durotar 01-12, Mulgore 01-12, Tirisfal Glades 01-12, The Barrens 15-21, Horde Chapter 1/2/3, Ungooro Crater, Burning Steppes, Winterspring
+* TBC Horde Leveling: Tauren Intro, Silverpine, Barrens 14-22, Felwood 54-55, Blackfathom
+* Vanilla Horde Leveling: Durotar 01-12, Mulgore 01-12, Tirisfal Glades 01-12, The Barrens 15-21, Horde Chapter 1/2/3, UnGoro Crater, Burning Steppes, Winterspring
 
 
 # Release 2026.04.23.B
