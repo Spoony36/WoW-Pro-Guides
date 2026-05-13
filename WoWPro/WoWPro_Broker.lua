@@ -4625,14 +4625,14 @@ function WoWPro:IsQuestFlaggedCompleted(qid,force)
     end
     if QID > 0 then
         if is_int(QID) then
-            return questCompleted(QID)
+            return questCompleted(QID, force)
         else
             QID = floor(QID)
             WoWProCharDB.completedQIDs[-QID] = not WoWPro.QuestLog[-QID]
             return WoWProCharDB.completedQIDs[QID]
         end
     else
-        return not questCompleted(-QID)
+        return not questCompleted(-QID, force)
     end
 end
 
