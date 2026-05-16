@@ -1130,7 +1130,7 @@ local function createAboutConfig()
                         type = "description",
                         width = "full",
                         name = function()
-                            local v, b, d, t = _G.GetBuildInfo()
+                            local v, b, _, t = _G.GetBuildInfo()
                             return ("WoW Client: %s (Build %s, TOC %s)"):format(tostring(v or "?"), tostring(b or "?"), tostring(t or "?"))
                         end,
                     },
