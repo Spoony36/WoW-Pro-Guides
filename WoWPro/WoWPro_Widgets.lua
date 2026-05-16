@@ -58,7 +58,7 @@ function WoWPro:CreateAction(parent, anchor)
     action.frame = frame
     action:SetAllPoints()
 
-    local tooltip = _G.CreateFrame("Frame", nil, frame, _G.BackdropTemplateMixin and "BackdropTemplate" or nil)
+    local tooltip = _G.CreateFrame("Frame", nil, _G.UIParent, _G.BackdropTemplateMixin and "BackdropTemplate" or nil)
     tooltip:SetBackdrop( {
         bgFile = [[Interface\CHARACTERFRAME\UI-Party-Background]],
         edgeFile = [[Interface\Tooltips\UI-Tooltip-Border]],
@@ -69,7 +69,10 @@ function WoWPro:CreateAction(parent, anchor)
     tooltip:SetHeight(125)
     tooltip:SetWidth(64)
     tooltip:SetAlpha(1)
-    tooltip:SetFrameStrata("TOOLTIP")
+    tooltip:SetFrameStrata("FULLSCREEN_DIALOG")
+    tooltip:SetFrameLevel(1000)
+    tooltip:SetToplevel(true)
+    tooltip:SetClampedToScreen(true)
     tooltip:Hide()
 
     local tooltiptext = tooltip:CreateFontString(nil, nil, "GameFontNormal")
@@ -83,6 +86,12 @@ function WoWPro:CreateAction(parent, anchor)
     tooltip.text = tooltiptext
 
     frame:SetScript("OnEnter", function()
+        local textWidth = tooltiptext:GetStringWidth() + 20
+        if textWidth < 80 then textWidth = 80 end
+        if textWidth > 260 then textWidth = 260 end
+        tooltip:SetWidth(textWidth)
+        tooltiptext:SetWidth(textWidth - 20)
+
         tooltip:SetPoint("BOTTOMLEFT", frame, "TOPRIGHT", 0, 0)
         tooltiptext:SetHeight(125)
         tooltiptext:SetHeight(tooltiptext:GetStringHeight())
@@ -574,8 +583,10 @@ function WoWPro:CreateGuideRow(parent, rowHeight)
     local row = _G.CreateFrame("Frame", nil, parent, _G.BackdropTemplateMixin and "BackdropTemplate" or nil)
     local tooltip = WoWPro.GuideRowTooltip
     local tooltiptext = tooltip.tooltiptext
-    tooltip:SetParent(parent)
-    tooltip:SetFrameLevel(row:GetFrameLevel() + 1)
+    tooltip:SetParent(_G.UIParent)
+    tooltip:SetFrameStrata("FULLSCREEN_DIALOG")
+    tooltip:SetFrameLevel(1000)
+    tooltip:SetToplevel(true)
     row:SetPoint("LEFT", 12, 0)
     row:SetHeight(rowHeight or 25)
 
