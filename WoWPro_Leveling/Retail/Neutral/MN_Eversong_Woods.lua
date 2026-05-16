@@ -618,7 +618,7 @@ T A Ranger's Spirit|QID|91385|M|59.48,67.13|Z|2395; Eversong Woods|N|To Arcanist
 T Beat of Blood|QID|86647|M|55.17,81.36|Z|2395; Eversong Woods|N|To Arator.|
 A Light Guide Us|QID|86648|PRE|86647|M|55.12,81.35|Z|2395; Eversong Woods|N|From Lor'themar Theron.|
 C Light Guide Us|QID|86648|M|58.96,81.37|Z|2395; Eversong Woods|N|Make your way down the bridge clicking on all the things as you go.|NC|
-T Light Guide Us|QID|86648|M|60.22,81.45|Z|2395; Eversong Woods|N|To Lor'themar Theron.|
+T Light Guide Us|QID|86648|M|60.07,81.45|Z|2395; Eversong Woods|N|To Lor'themar Theron.|
 A Past Redemption|QID|86649|PRE|86648|M|60.22,81.45|Z|2395; Eversong Woods|N|From High Exarch Turalyon.|
 C Past Redemption|QID|86649|M|60.22,81.45|Z|2395; Eversong Woods|N|Speak to Turalyon.|CHAT|
 T Past Redemption|QID|86649|M|60.56,81.48|Z|2395; Eversong Woods|N|To Lor'themar Theron.|

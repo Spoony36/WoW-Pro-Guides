@@ -4,7 +4,7 @@ WoWPro:GuideContent(guide, 11)
 WoWPro:GuideLevels(guide,80, 90)
 WoWPro:GuideQuestTriggers(guide, 89402)
 WoWPro:GuideSort(guide, 4)
-WoWPro:GuideNextGuide(guide, 'Void Storm')
+WoWPro:GuideNextGuide(guide, 'Voidstorm')
 WoWPro:GuideSteps(guide, function()
 return [[
 

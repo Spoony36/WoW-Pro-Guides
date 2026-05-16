@@ -777,7 +777,7 @@ function WoWPro.RowSizeSet()
             if expansionAnchor == "TOPLEFT" or expansionAnchor == "TOPRIGHT" then
                 -- Growing downward: max height is distance from current top to bottom of screen
                 local frameTop = WoWPro.MainFrame:GetTop() or screenH
-                maxHeightScreen = screenH - frameTop
+                maxHeightScreen = frameTop
             else
                 -- Growing upward: max height is distance from current bottom to top of screen
                 local frameBottom = WoWPro.MainFrame:GetBottom() or 0
