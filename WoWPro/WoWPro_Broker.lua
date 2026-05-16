@@ -2264,6 +2264,15 @@ function WoWPro.UpdateGuideReal(From)
         WoWPro:dbp("[Broker]: First Guide Update completed.  Resuming normal processing.")
         WoWPro.GuideUpdated = true
         WoWPro.FirstUpdatePending = false
+        if _G.C_Timer and _G.C_Timer.After then
+            _G.C_Timer.After(0, function()
+                if WoWPro and WoWPro.RowSet and WoWPro.GuideLoaded then
+                    WoWPro.PaddingSet()
+                    WoWPro.RowSet()
+                    WoWPro:ClampBarsOnScreen()
+                end
+            end)
+        end
         WoWPro:dbp("[Naughty Broker]: Invoke the ZONE_CHANGED_NEW_AREA event handler directly before Replay!")
         WoWPro.ZONE_CHANGED_NEW_AREA("ZONE_CHANGED_NEW_AREA_GUIDE_UPDATE")
         WoWPro.EventReplayStart()

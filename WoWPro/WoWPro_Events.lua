@@ -275,6 +275,15 @@ WoWPro.RegisterEventHandler("PLAYER_ENTERING_WORLD", function(event, ...)
     WoWPro.AutoHideFrame("|cff33ff33Battleground Exit Auto Show|r: "..event, "INSTANCE")
     WoWPro:InitializeHearthBind()
     WoWPro:UpdateTradeSkills()
+    if _G.C_Timer and _G.C_Timer.After then
+        _G.C_Timer.After(1.6, function()
+            if WoWPro and WoWPro.GuideLoaded and not WoWPro.FirstUpdatePending then
+                WoWPro.PaddingSet()
+                WoWPro.RowSet()
+                WoWPro:ClampBarsOnScreen()
+            end
+        end)
+    end
     end, true)
 
 -- Locking event processong till after things get settled --
