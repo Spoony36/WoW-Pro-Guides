@@ -1055,8 +1055,8 @@ local function createAboutConfig()
                         order = 3,
                         type = "input",
                         name = "GitHub",
-                        get = function() return "https://github.com/AeroScripts/WoW-Pro-Guides" end,
-                        set = function() return "https://github.com/AeroScripts/WoW-Pro-Guides" end,
+                        get = function() return "https://github.com/Ludovicus-Maior/WoW-Pro-Guides" end,
+                        set = function() return "https://github.com/Ludovicus-Maior/WoW-Pro-Guides" end,
                         width = "double"
                     },
                 },
