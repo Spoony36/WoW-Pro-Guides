@@ -18,6 +18,8 @@ WoWPro.mygroupsteps = {}
 WoWPro.myGroupTrack = {}
 WoWPro.playerGroup = {}
 
+WoWPro.UpdateGuideRealInProgress = false
+
 -- Debug toggles
 WoWPro.DEBUG_STICKY_PAIRING = false -- Set to true to enable sticky pairing debug output
 WoWPro.DEBUG_REPEATABLE = false -- Set to true to enable debug output for repeatable A step resets and quest log changes
@@ -39,6 +41,10 @@ end
 
 
 local quids_debug = false
+
+local function CanCompleteStepImmediateRefresh(step)
+    return step == WoWPro.ActiveStep and WoWPro.GuideFrame and WoWPro.GuideFrame:IsVisible() and not WoWPro.InitLockdown and not _G.InCombatLockdown()
+end
 
 local function QidMapReduce(list, default, or_string, and_string, func, why, debug, abs_quid)
     if not list then
@@ -1058,49 +1064,53 @@ function WoWPro.SetActionTexture(currentRow)
     local k = currentRow.index
     local action = WoWPro.action[k]
     local QID = WoWPro.QID[k]
+    if not currentRow or not currentRow.iconTexture then return end
+
+    currentRow.iconTexture.tooltip = currentRow.iconTexture.tooltip or { text = "" }
+    local tooltipText = currentRow.iconTexture.tooltip
 
     -- Set default Texture
-    currentRow.action:SetTexture(WoWPro.actiontypes[action])
-    -- Set custom Texure
-    currentRow.action.tooltip.text:SetText(WoWPro.actionlabels[action])
+    currentRow.iconTexture:SetTexture(WoWPro.actiontypes[action])
+    -- Set custom Texture tooltip text
+    tooltipText.text = WoWPro.actionlabels[action] or ""
     if WoWPro.action[k] == "C" then
         local tex = WoWPro.GetQuestIconActive(QID)
-        WoWPro.SetAtlasOrTexture(currentRow.action, tex)
-        currentRow.action.tooltip.text:SetText("Campaign Quest")
+        WoWPro.SetAtlasOrTexture(currentRow.iconTexture, tex)
+        tooltipText.text = "Campaign Quest"
     end
     if WoWPro.noncombat[k] and (WoWPro.action[k] == "C" or WoWPro.action[k] == "N") then
-        currentRow.action:SetTexture("Interface\\AddOns\\WoWPro\\Textures\\Config.tga")
-        currentRow.action.tooltip.text:SetText("No Combat")
+        currentRow.iconTexture:SetTexture("Interface\\AddOns\\WoWPro\\Textures\\Config.tga")
+        currentRow.iconTexture.tooltip.text = "No Combat"
     elseif WoWPro.hand[k] and (WoWPro.action[k] == "C" or WoWPro.action[k] == "N") then
-        currentRow.action:SetTexture(WoWPro.actiontypes["HAND TAG"])
-        currentRow.action.tooltip.text:SetText(WoWPro.actionlabels["HAND TAG"])
+        currentRow.iconTexture:SetTexture(WoWPro.actiontypes["HAND TAG"])
+        currentRow.iconTexture.tooltip.text = WoWPro.actionlabels["HAND TAG"]
     elseif WoWPro.inspect[k] and (WoWPro.action[k] == "C" or WoWPro.action[k] == "N") then
-        currentRow.action:SetTexture(WoWPro.actiontypes["INSPECT TAG"])
-        currentRow.action.tooltip.text:SetText(WoWPro.actionlabels["INSPECT TAG"])
+        currentRow.iconTexture:SetTexture(WoWPro.actiontypes["INSPECT TAG"])
+        currentRow.iconTexture.tooltip.text = WoWPro.actionlabels["INSPECT TAG"]
     elseif WoWPro.lootitem[k] and WoWPro.action[k] == "C" then
-        currentRow.action:SetTexture(WoWPro.actiontypes['l'])
-        currentRow.action.tooltip.text:SetText("Loot Complete")
+        currentRow.iconTexture:SetTexture(WoWPro.actiontypes['l'])
+        currentRow.iconTexture.tooltip.text = "Loot Complete"
     elseif WoWPro.chat[k] then
-        currentRow.action:SetTexture("Interface\\GossipFrame\\Gossipgossipicon")
-        currentRow.action.tooltip.text:SetText("Chat")
+        currentRow.iconTexture:SetTexture("Interface\\GossipFrame\\Gossipgossipicon")
+        currentRow.iconTexture.tooltip.text = "Chat"
     elseif WoWPro.jump[k] then
-        currentRow.action:SetTexture("Interface\\Icons\\spell_arcane_teleportironforge")
-        currentRow.action.tooltip.text:SetText("Jump")
+        currentRow.iconTexture:SetTexture("Interface\\Icons\\spell_arcane_teleportironforge")
+        currentRow.iconTexture.tooltip.text = "Jump"
     elseif WoWPro.vehichle[k] then
         -- Yeah, that is how blizzard spelled it!
-        currentRow.action:SetTexture("Interface\\CURSOR\\vehichleCursor")
-        currentRow.action.tooltip.text:SetText("Take Vehicle")
+        currentRow.iconTexture:SetTexture("Interface\\CURSOR\\vehichleCursor")
+        currentRow.iconTexture.tooltip.text = "Take Vehicle"
     elseif WoWPro.elite[k] and WoWPro.action[k] == "A" then
-        currentRow.action:SetTexture(WoWPro.actiontypes[action.." ELITE"])
-        currentRow.action.tooltip.text:SetText("Elite Quest")
+        currentRow.iconTexture:SetTexture(WoWPro.actiontypes[action.." ELITE"])
+        currentRow.iconTexture.tooltip.text = "Elite Quest"
     elseif WoWPro.action[k] == "A" then
         local tex = WoWPro.GetQuestIconOffer(QID)
-        WoWPro.SetAtlasOrTexture(currentRow.action, tex)
-        currentRow.action.tooltip.text:SetText("Campaign Quest")
+        WoWPro.SetAtlasOrTexture(currentRow.iconTexture, tex)
+        currentRow.iconTexture.tooltip.text = "Campaign Quest"
     elseif WoWPro.action[k] == "T" then
         local tex = WoWPro.GetQuestIconComplete(QID)
-        WoWPro.SetAtlasOrTexture(currentRow.action, tex)
-        currentRow.action.tooltip.text:SetText("Campaign Quest")
+        WoWPro.SetAtlasOrTexture(currentRow.iconTexture, tex)
+        currentRow.iconTexture.tooltip.text = "Campaign Quest"
     end
 end
 
@@ -2021,13 +2031,19 @@ function WoWPro.UpdateGuideRealSlow(From)
 end
 
 function WoWPro.UpdateGuideReal(From)
-    local GID = WoWProDB.char.currentguide
-    local why = ""
-    for who, count in pairs(From) do
-        why = why .. ("[%s]=%s "):format(tostring(who), tostring(count))
+    if WoWPro.UpdateGuideRealInProgress then
+        WoWPro:dbp("UpdateGuideReal(): nested update suppressed")
+        return
     end
-    WoWPro:dbp("UpdateGuideReal(%s): Running", why)
-    if not WoWPro.GuideFrame:IsVisible() then
+    WoWPro.UpdateGuideRealInProgress = true
+    local function runUpdate()
+        local GID = WoWProDB.char.currentguide
+        local why = ""
+        for who, count in pairs(From) do
+            why = why .. ("[%s]=%s "):format(tostring(who), tostring(count))
+        end
+        WoWPro:dbp("UpdateGuideReal(%s): Running", why)
+        if not WoWPro.GuideFrame:IsVisible() then
         -- Cinematic hides things (or user collapsed frame with double-click).
         -- Only re-queue if the user did not intentionally collapse the frame.
         if not WoWPro.UserCollapsed then
@@ -2235,6 +2251,9 @@ function WoWPro.UpdateGuideReal(From)
         WoWPro.ZONE_CHANGED_NEW_AREA("ZONE_CHANGED_NEW_AREA_GUIDE_UPDATE")
         WoWPro.EventReplayStart()
     end
+end
+    runUpdate()
+    WoWPro.UpdateGuideRealInProgress = false
 end
 
 
@@ -4190,9 +4209,14 @@ function WoWPro.CompleteStep(step, why, noUpdate)
             return true
         end
     end
-    WoWPro.why[step] = why
     if not noUpdate then
-        WoWPro:UpdateGuide("WoWPro.CompleteStep")
+        if CanCompleteStepImmediateRefresh(step) then
+            WoWPro:print("BUCKET_BYPASS: CompleteStep(%d) ActiveStep=%s visible=%s initLockdown=%s combat=%s immediate refresh", step, tostring(WoWPro.ActiveStep), tostring(WoWPro.GuideFrame and WoWPro.GuideFrame:IsVisible()), tostring(WoWPro.InitLockdown), tostring(_G.InCombatLockdown()))
+            WoWPro:RemoveMapPoint()
+            WoWPro.UpdateGuideReal({["WoWPro.CompleteStep"] = 1})
+        else
+            WoWPro:UpdateGuide("WoWPro.CompleteStep")
+        end
     end
 end
 
