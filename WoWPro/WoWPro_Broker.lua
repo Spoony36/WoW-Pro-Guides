@@ -367,14 +367,24 @@ function WoWPro:QuestFailed(QIDs, debug, why)
 end
 
 local OBJECTIVE_PATTERN = "^(%d*)([<=>]*)(%d*)$"
+local function CanonicalizeObjectiveOperator(operator)
+    if operator == "<=" then
+        return "<"
+    elseif operator == ">=" then
+        return ">"
+    elseif operator == "<" or operator == ">" or operator == "=" or operator == "" then
+        return operator
+    end
+    return nil
+end
+
 function WoWPro.ValidObjective(questtext)
     local objective, operator, target = tostring(questtext):match(OBJECTIVE_PATTERN)
-    if operator ~= "" then
+    local canonical = CanonicalizeObjectiveOperator(operator)
+    if operator == "" and target == "" then
         return tonumber(objective)
-    elseif target == "" and operator == "" then
+    elseif operator ~= "" and target ~= "" and canonical then
         return tonumber(objective)
-    elseif operator and target then
-        return true
     else
         return false
     end
@@ -833,7 +843,7 @@ function WoWPro.UpdateQuestTrackerRow(row)
         WoWPro:dbp("UpdateQuestTrackerRow: profile.track=%s num=%d action=%s questtext=%s lootitem=%s",tostring(WoWProDB.profile.track),row.num,tostring(action),tostring(questtext),tostring(lootitem))
     end
     if WoWProDB.profile.track and ( action == "C" or questtext or lootitem) then
-        if QID and WoWPro:QIDsInTable(QID,WoWPro.QuestLog) and WoWPro:QIDsInTable(QID,WoWPro.QuestLog,'leaderBoard') then
+        if QID and WoWPro:QIDsInTable(QID,WoWPro.QuestLog) and WoWPro:QIDsInTableKey(QID, WoWPro.QuestLog, 'leaderBoard') then
             local qid = WoWPro:QIDInTable(QID,WoWPro.QuestLog)
             local j = WoWPro.QuestLog[qid].index
             row.trackcheck = true
@@ -1137,9 +1147,9 @@ function WoWPro.SetActionTexture(currentRow)
     -- Set custom Texture tooltip text
     tooltipText.text = WoWPro.actionlabels[action] or ""
     if WoWPro.action[k] == "C" then
-        local tex = WoWPro.GetQuestIconActive(QID)
+        local tex, label = WoWPro.GetQuestIconActive(QID)
         WoWPro.SetAtlasOrTexture(currentRow.iconTexture, tex)
-        tooltipText.text = "Campaign Quest"
+        tooltipText.text = label or ""
     end
     if WoWPro.noncombat[k] and (WoWPro.action[k] == "C" or WoWPro.action[k] == "N") then
         currentRow.iconTexture:SetTexture("Interface\\AddOns\\WoWPro\\Textures\\Config.tga")
@@ -1167,13 +1177,13 @@ function WoWPro.SetActionTexture(currentRow)
         currentRow.iconTexture:SetTexture(WoWPro.actiontypes[action.." ELITE"])
         currentRow.iconTexture.tooltip.text = "Elite Quest"
     elseif WoWPro.action[k] == "A" then
-        local tex = WoWPro.GetQuestIconOffer(QID)
+        local tex, label = WoWPro.GetQuestIconOffer(QID)
         WoWPro.SetAtlasOrTexture(currentRow.iconTexture, tex)
-        currentRow.iconTexture.tooltip.text = "Campaign Quest"
+        currentRow.iconTexture.tooltip.text = label or ""
     elseif WoWPro.action[k] == "T" then
-        local tex = WoWPro.GetQuestIconComplete(QID)
+        local tex, label = WoWPro.GetQuestIconComplete(QID)
         WoWPro.SetAtlasOrTexture(currentRow.iconTexture, tex)
-        currentRow.iconTexture.tooltip.text = "Campaign Quest"
+        currentRow.iconTexture.tooltip.text = label or ""
     end
 end
 
