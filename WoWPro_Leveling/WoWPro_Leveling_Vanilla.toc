@@ -1,10 +1,10 @@
-## Interface: 11508
+## Interface: 11509
 ## Title: |cffFF9900WoW-|r|cff46921APro|r Leveling
 ## Notes: Leveling guides created by the WoW-Pro Community
 ## Author: Jiyambi
 ## IconTexture: Interface\GossipFrame\AvailableQuestIcon
 ## Dependencies: WoWPro
-## Version: 2026.06.23.A
+## Version: 2026.07.22.A
 ## X-Category: Quest
 ## X-License: Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License.
 WoWPro_Leveling.lua
