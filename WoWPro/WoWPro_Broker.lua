@@ -1692,7 +1692,7 @@ if step then
     WoWPro.RowDropdownMenu[i] = dropdown
 
         -- Item Button --
-        if showButtons then
+        if showButtons and WoWProDB.profile.showItemButton then
             if action == "H" and not use then use = WoWPro.SelectHearthstone() end
 
             if action == "*" and use and WoWPro.C_Item_GetItemInfo then
@@ -1858,7 +1858,7 @@ if step then
         end
 
         -- Loots Buttons --
-        if item then
+        if item and WoWProDB.profile.showLootsButtons then
             -- Parse multiple items separated by semicolons
             local items = {(";"):split(item)}
             local buttonIndex = 1
@@ -1910,7 +1910,7 @@ if step then
         end
 
         --Guide Jump Button
-        if showButtons and WoWPro.jump[k] then
+        if showButtons and WoWPro.jump[k] and WoWProDB.profile.showJumpButton then
 			local newguide, ctID = (";"):split(WoWPro.jump[k])
 			if not _G.InCombatLockdown() then
 				currentRow.jumpbutton:Show()
@@ -1939,7 +1939,7 @@ if step then
         end
 
         -- EA Button --
-        if showButtons and eab then
+        if showButtons and eab and WoWProDB.profile.showEAButton then
             local mtext = "/click ExtraActionButton1"
             if not _G.InCombatLockdown() then
                 currentRow.eabutton:Show()
@@ -2005,7 +2005,7 @@ if step then
 
 
         -- Target Button --
-        if showButtons and target and not _G.InCombatLockdown() then
+        if showButtons and target and not _G.InCombatLockdown() and WoWProDB.profile.showTargetButton then
             local mtext
             local tar, emote = (","):split(target)
             currentRow.targetbutton:Show()
@@ -4900,7 +4900,14 @@ function WoWPro:QuestPrereq(qid)
 end
 
 function WoWPro:Questline(qid)
-    if not Grail or not WoWProCharDB.EnableGrailQuestline then return end
+    if not Grail then
+        _G.print("|cffff0000WoWPro: Grail library is not installed. Quest Picker requires Grail.|r")
+        return
+    end
+    if not WoWProCharDB.EnableGrailQuestline then
+        _G.print("|cffff0000WoWPro: Quest Picker is disabled. Enable it in Options > Main > Automation > Enable Grail Questline.|r")
+        return
+    end
     WoWPro:SkipAll()
     WoWPro:QuestPrereq(qid)
     WoWPro:LoadGuide(nil)
@@ -4921,7 +4928,7 @@ _G.StaticPopupDialogs["WOWPRO_CONFIRMPICK"] = {
     text = "Please enter the quest ID to select and then click GO!",
     button1 = "Go!",
     button2 = "Never Mind",
-    OnAccept = function(self,data,data2) local qid = self.EditBox:GetText() ; WoWPro:Questline(tonumber(qid)) end,
+    OnAccept = function(self,data,data2) if data then WoWPro:Questline(tonumber(data)) end end,
     hideOnEscape = true,
     preferredIndex = 3,
     hasEditBox = false,
@@ -4931,7 +4938,7 @@ _G.StaticPopupDialogs["WOWPRO_CONFIRMPICK"] = {
 function WoWPro.PickQuestline(qid, step)
     if type(qid)== "number" and type(step) == "string" then
         _G.StaticPopupDialogs["WOWPRO_CONFIRMPICK"].text = ("Select quest [%s] (QID %s) and all prerequisites?"):format(step,tostring(qid))
-        _G.StaticPopup_Show("WOWPRO_CONFIRMPICK")
+        _G.StaticPopup_Show("WOWPRO_CONFIRMPICK", nil, nil, tostring(qid))
     else
         _G.StaticPopup_Show("WOWPRO_PICKQUEST")
     end
