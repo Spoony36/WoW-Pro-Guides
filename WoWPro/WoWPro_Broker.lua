@@ -4900,14 +4900,7 @@ function WoWPro:QuestPrereq(qid)
 end
 
 function WoWPro:Questline(qid)
-    if not Grail then
-        _G.print("|cffff0000WoWPro: Grail library is not installed. Quest Picker requires Grail.|r")
-        return
-    end
-    if not WoWProCharDB.EnableGrailQuestline then
-        _G.print("|cffff0000WoWPro: Quest Picker is disabled. Enable it in Options > Main > Automation > Enable Grail Questline.|r")
-        return
-    end
+    if not Grail or not WoWProCharDB.EnableGrailQuestline then return end
     WoWPro:SkipAll()
     WoWPro:QuestPrereq(qid)
     WoWPro:LoadGuide(nil)
@@ -4928,7 +4921,7 @@ _G.StaticPopupDialogs["WOWPRO_CONFIRMPICK"] = {
     text = "Please enter the quest ID to select and then click GO!",
     button1 = "Go!",
     button2 = "Never Mind",
-    OnAccept = function(self,data,data2) if data then WoWPro:Questline(tonumber(data)) end end,
+    OnAccept = function(self,data,data2) local qid = self.EditBox:GetText() ; WoWPro:Questline(tonumber(qid)) end,
     hideOnEscape = true,
     preferredIndex = 3,
     hasEditBox = false,
@@ -4938,7 +4931,7 @@ _G.StaticPopupDialogs["WOWPRO_CONFIRMPICK"] = {
 function WoWPro.PickQuestline(qid, step)
     if type(qid)== "number" and type(step) == "string" then
         _G.StaticPopupDialogs["WOWPRO_CONFIRMPICK"].text = ("Select quest [%s] (QID %s) and all prerequisites?"):format(step,tostring(qid))
-        _G.StaticPopup_Show("WOWPRO_CONFIRMPICK", nil, nil, tostring(qid))
+        _G.StaticPopup_Show("WOWPRO_CONFIRMPICK")
     else
         _G.StaticPopup_Show("WOWPRO_PICKQUEST")
     end
