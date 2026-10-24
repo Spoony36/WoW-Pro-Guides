@@ -1,3 +1,39 @@
+# Release 2026.10.16.A
+* A quick update before Forever gets released
+## Bug Fixes
+* Updated the retail .toc files
+* Zone Data refresh for retail
+* Update HereBeDragons to 2.18-release, which adds support for 16001 and 120105
+* Update LibSharedMedia to v12.1.2
+* Update LibDBIcon to v12.1.1
+* Add parse time check for SPELL arguments
+## Guide Updates
+* Vanilla Leveling: Alliance 50-55, Horde Chapter 3 41-50
+
+
+# Release 2026.09.30.A
+## Bug Fixes
+* Interim Fix for Frame Jumping issue
+* Fix Recorder not saving first step on newly created guides
+* Added configuration to enable/disable extra buttons independently:
+## Guide Updates
+* Retail Achievements: Undead Heritage Armor, Return to Lordaeron (Horde)
+
+
+# Release 2026.08.27.A
+## Bug Fixes
+* Don't check Auras during combat, just in case
+* Update to Ace3 Release-r1403
+* Update HereBeDragons to 2.17-release
+* Preserve loot tracking updates without guide rebuilds
+* Update invocation of IsMouseOver from global to frame method
+* Yet more map updates from the Retail PTR
+* Tiny fixes in WoWPro_AutoComplete.lua and WoWPro_Config.lua
+* Fix bug in Recorder to use the right guide names
+## Guide Updates
+* Retail Neutral Leveling: The Curse of Ula'tek, Harandar, Voidstorm, Zul' Aman
+
+
 # Release 2026.07.22.A
 ## Bug Fixes
 * Update LibSharedMedia to r173
